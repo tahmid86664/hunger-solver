@@ -26,6 +26,16 @@
                             <li>@Html.ActionLink("About", "About", "Home")</li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         </ul>
+                        <ul class="nav navbar-nav">
+                            @if (ViewBag.User == null)
+                            {
+                                <li>@Html.ActionLink("Login", "Login", "User")</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Logout", "LogOff", "User")</li>
+                            }
+                        </ul>
                     </div>
                 </div>
             </nav>

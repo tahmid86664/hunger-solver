@@ -11,6 +11,7 @@ using Microsoft.Owin;
 using Owin;
 using Microsoft.Owin.Security;
 using hunger_solver.Models;
+using System.Diagnostics;
 
 namespace hunger_solver.Controllers
 {
@@ -34,7 +35,7 @@ namespace hunger_solver.Controllers
                 var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
 
                 var a = await auth.CreateUserWithEmailAndPasswordAsync(model.Email, model.Password, model.Name, true);
-                ModelState.AddModelError(string.Empty, "Please Verify your email then login Plz.");
+                ModelState.AddModelError(string.Empty, "Please verify your email then login please.");
             }
             catch (Exception ex)
             {
@@ -90,14 +91,18 @@ namespace hunger_solver.Controllers
                     var user = ab.User;
                     if (token != "")
                     {
-
+                        Debug.WriteLine("logged in");
+                        Debug.WriteLine(ab);
+                        Debug.WriteLine(token);
+                        ViewBag.User = user;
                         this.SignInUser(user.Email, token, false);
-                        return this.RedirectToLocal(returnUrl);
+                        return this.RedirectToLocal("/", user);
 
                     }
                     else
                     {
                         // Setting.
+                        Debug.Write("Invalid username and pass");
                         ModelState.AddModelError(string.Empty, "Invalid username or password.");
                     }
                 }
@@ -105,7 +110,8 @@ namespace hunger_solver.Controllers
             catch (Exception ex)
             {
                 // Info
-                Console.Write(ex);
+                Debug.WriteLine("I'm from LoginAction exception");
+                //throw ex;
             }
 
             // If we got this far, something failed, redisplay form
@@ -131,7 +137,8 @@ namespace hunger_solver.Controllers
             catch (Exception ex)
             {
                 // Info
-                throw ex;
+                Debug.WriteLine("I'm from signInUser exception"); 
+                //throw ex;
             }
         }
 
@@ -153,10 +160,12 @@ namespace hunger_solver.Controllers
             }
         }
 
-        private ActionResult RedirectToLocal(string returnUrl)
+        private ActionResult RedirectToLocal(string returnUrl, User user)
         {
             try
             {
+                ViewBag.User = user;
+                Debug.WriteLine(returnUrl);
                 // Verification.
                 if (Url.IsLocalUrl(returnUrl))
                 {
@@ -181,7 +190,8 @@ namespace hunger_solver.Controllers
             var ctx = Request.GetOwinContext();
             var authenticationManager = ctx.Authentication;
             authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Login", "User");
+            Debug.WriteLine("Logged out");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
