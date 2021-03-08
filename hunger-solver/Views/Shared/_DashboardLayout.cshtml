@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_DashboardLayout</title>
+    @Styles.Render("~/Content/css/dashboard")
+</head>
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <div class="sidebar_top">
+
+            </div>
+            <div class="sidebar_buttons">
+
+            </div>
+            <div class="sidebar_bottom">
+
+            </div>
+        </div>
+        <div class="dashboard_sep"></div>
+        <div class="dashboard_body">
+            <div class="header">
+
+            </div>
+            <main class="dashboard_main">
+                <div>
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

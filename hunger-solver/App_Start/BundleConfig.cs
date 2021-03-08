@@ -26,7 +26,8 @@ namespace hunger_solver
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/signup.css",
-                      "~/Content/about.css"));
+                      "~/Content/about.css",
+                      "~/Content/dashboard.css"));
         }
     }
 }

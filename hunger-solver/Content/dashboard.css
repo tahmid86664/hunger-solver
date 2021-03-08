@@ -1,0 +1,22 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+.dashboard {
+    display: flex;
+    flex-direction: row;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 100%;
+    color: #00ffff;
+}
+
+.dashboard_body {
+    width: 60%;
+    height: 100%;
+    color: #ff6a00;
+}

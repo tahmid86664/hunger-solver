@@ -75,6 +75,9 @@ namespace hunger_solver.Controllers
             return this.View();
         }
 
+        //after signing up the data should be in the database
+
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
