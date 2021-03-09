@@ -114,3 +114,4 @@ F:\3.2\Software Development\hunger-solver\hunger-solver\obj\Debug\hunger-solver.
 F:\3.2\Software Development\hunger-solver\hunger-solver\obj\Debug\hunger-solver.csproj.CopyComplete
 F:\3.2\Software Development\hunger-solver\hunger-solver\obj\Debug\hunger-solver.dll
 F:\3.2\Software Development\hunger-solver\hunger-solver\obj\Debug\hunger-solver.pdb
+F:\3.2\Software Development\hunger-solver\hunger-solver\obj\Debug\hunger-solver.csprojAssemblyReference.cache

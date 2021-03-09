@@ -11,12 +11,13 @@
     display: flex;
     flex-direction: column;
     width: 30%;
+    min-width: 250px;
     height: 100%;
-    color: #00ffff;
+    background-color: rgb(227, 249, 250);
 }
 
 .dashboard_body {
     width: 60%;
     height: 100%;
-    color: #ff6a00;
+    background-color: rgb(26, 4, 59);
 }
