@@ -10,14 +10,123 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 20%;
     min-width: 250px;
-    height: 100%;
-    background-color: rgb(227, 249, 250);
+    height: 100vh;
+    background-color: rgb(26, 4, 59);
+    color: white;
 }
 
 .dashboard_body {
-    width: 60%;
-    height: 100%;
-    background-color: rgb(26, 4, 59);
+    width: 80%;
+    height: 100vh;
+    background-color: rgb(243, 240, 247);
 }
+
+.dashboard_body .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    height: 60px;
+    background-color: rgb(255, 255, 255);
+}
+
+.dashboard_main {
+    width: 100%;
+    height: auto;
+    padding: 10px 30px;
+}
+
+.sidebar_top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
+    padding: 5px 20px;
+}
+
+.sidebar_profile_image{
+    width: 60px;
+    height: inherit;
+}
+
+.sidebar_profile_image img {
+    width: 100%;
+    height: 100%;
+    border: 1px solid white;
+    border-radius: 20px;
+}
+
+.sidebar_profile_name{
+    height: inherit;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.dashboard-nav {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.dashboard-nav li{
+    list-style: none;
+    padding-left: 20px;
+}
+
+.dashboard-nav a {
+    text-decoration: none; 
+}
+
+
+
+
+
+
+
+
+
+
+/* ========================= Dashboard Index =========================*/
+.index-dashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.index-dashboard .top-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 40vh;
+    margin-bottom: 50px;
+}
+
+.index-dashboard .bottom-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.current {
+    width: 40%;
+    text-align: center;
+    background-color: burlywood;
+}
+
+.recent {
+    width: 60%;
+    text-align: center;
+    background-color: aqua;
+}
+
+
+
+
+

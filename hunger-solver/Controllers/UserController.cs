@@ -99,7 +99,7 @@ namespace hunger_solver.Controllers
                         Debug.WriteLine(token);
                         ViewBag.User = user;
                         this.SignInUser(user.Email, token, false);
-                        return this.RedirectToLocal("/", user);
+                        return this.RedirectToLocal("/Dashboard", user);
 
                     }
                     else

@@ -8,52 +8,124 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow ">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        @Html.ActionLink("Hunger Solver", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                        <ul class="nav navbar-nav ml-auto">
-                            @if (!User.Identity.IsAuthenticated)
-                            {
-                                <li>@Html.ActionLink("Login", "Login", "User")</li>
-                            }
-                            else
-                            {
-                                <li>@Html.ActionLink("Logout", "LogOff", "User")</li>
-
-                            }
-                            <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
-                        </ul>
-                    </div>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow ">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Hunger Solver", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
-            </nav>
-        </header>
-        <div>
-            <main role="main">
-                @RenderBody()
-            </main>
-        </div>
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Hunger Solver</p>
-        </footer>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    <ul class="nav navbar-nav ml-auto">
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Signup", "Signup", "User")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
+                            <li>@Html.ActionLink("Logout", "LogOff", "User")</li>
+                        }
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    </body>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- ========================== footer ========================== -->
+    <footer>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-4 col-md-6">
+                    <h3>Site Map</h3>
+                    <ul class="list-unstyled three-column">
+                        <li>Home</li>
+                        <li>Services</li>
+                        <li>About</li>
+                        <li>Code</li>
+                        <li>Design</li>
+                        <li>Host</li>
+                        <li>Contact</li>
+                        <li>Company</li>
+                    </ul>
+                    <ul class="list-unstyled socila-list">
+                        <li><img src="http://placehold.it/48x48" alt="" /></li>
+                        <li><img src="http://placehold.it/48x48" alt="" /></li>
+                        <li><img src="http://placehold.it/48x48" alt="" /></li>
+                        <li><img src="http://placehold.it/48x48" alt="" /></li>
+                        <li><img src="http://placehold.it/48x48" alt="" /></li>
+                        <li><img src="http://placehold.it/48x48" alt="" /></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <h3>latest Articles</h3>
+                    <div class="media">
+                        <a href="#" class="pull-left">
+                            <img src="http://placehold.it/64x64" alt="" class="media-object" />
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">Programming</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </div>
+
+                    <div class="media">
+                        <a href="#" class="pull-left">
+                            <img src="http://placehold.it/64x64" alt="" class="media-object" />
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">Coding</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </div>
+
+                    <div class="media">
+                        <a href="#" class="pull-left">
+                            <img src="http://placehold.it/64x64" alt="" class="media-object" />
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">Web Sesign</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+                    <h3>Our Work</h3>
+                    <img class="img-thumbnail" src="http://placehold.it/150x100" alt="" />
+                    <img class="img-thumbnail" src="http://placehold.it/150x100" alt="" />
+                    <img class="img-thumbnail" src="http://placehold.it/150x100" alt="" />
+                    <img class="img-thumbnail" src="http://placehold.it/150x100" alt="" />
+                </div>
+
+            </div>
+        </div>
+        <div class="copyright text-center">
+            Copyright &copy; 2017 <span>Your Template Name</span>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
 </html>

@@ -27,7 +27,9 @@
 
                     @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "", placeholder = "Password" } })
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-
+                    
+                    @Html.ActionLink("Already have an account? Login please.", "Login", "User")
+                    
                     <input type="submit" value="Sign Up" id="submit" />
                     <input type="submit" value="Sign up using Google" id="google_submit" />
                 </div>
@@ -35,6 +37,10 @@
         </div>
     </div>
 }
+
+<div class="gap-in-signup-page">
+
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

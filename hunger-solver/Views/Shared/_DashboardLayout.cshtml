@@ -15,8 +15,14 @@
     <div class="dashboard">
         <div class="sidebar">
             <div class="sidebar_top">
-
+                <div class="sidebar_profile_image">
+                    <img src="~/images/user_dummy.png" alt="profile image"/>
+                </div>
+                <div class="sidebar_profile_name">
+                    Lorem Ipsum Name
+                </div>
             </div>
+            <div class="separator"></div>
             <div class="sidebar_buttons">
 
             </div>
@@ -24,10 +30,15 @@
 
             </div>
         </div>
-        <div class="dashboard_sep"></div>
         <div class="dashboard_body">
             <div class="header">
-
+                <ul class="dashboard-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Logout", "Logoff", "User")</li>
+                    }
+                </ul>
             </div>
             <main class="dashboard_main">
                 <div>

@@ -10,45 +10,48 @@
         <div class="top_title">
             Help poor by giving donation
         </div>
-        <div class="top-login-container">
-            @using (Html.BeginForm("Login", "User", FormMethod.Post))
-            {
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="top-login-container">
+                @using (Html.BeginForm("Login", "User", FormMethod.Post))
+                {
 
-                <div id="login">
+                    <div id="login">
+                        <div class="header">
+                            <h1>Login</h1>
+                            <p>You have to fill out this form</p>
+                        </div>
+                    
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="sep"></div>            
+                        <div class="inputs">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "", placeholder = "Email" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "", placeholder = "Password" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                            <input type="submit" value="Login" id="submit" />
+                        </div>
+                    </div>
+                }
+                @*<form id="login" method="post">
                     <div class="header">
                         <h1>Login</h1>
                         <p>You have to fill out this form</p>
                     </div>
-                    
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="sep"></div>            
+                    <div class="sep"></div>
                     <div class="inputs">
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "", placeholder = "Email" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "", placeholder = "Password" } })
-                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-
-                        <input type="submit" value="Login" id="submit" />
+                        <input type="email" placeholder="e-mail" autofocus />
+                        <input type="password" placeholder="Password" />
+                        <div class="checkboxy">
+                            <input name="cecky" id="checky" value="1" type="checkbox" /><label class="terms">Remember Me?</label>
+                        </div>
+                        <a id="submit" href="#">Login</a>
                     </div>
-                </div>
-            }
-            @*<form id="login" method="post">
-                <div class="header">
-                    <h1>Login</h1>
-                    <p>You have to fill out this form</p>
-                </div>
-                <div class="sep"></div>
-                <div class="inputs">
-                    <input type="email" placeholder="e-mail" autofocus />
-                    <input type="password" placeholder="Password" />
-                    <div class="checkboxy">
-                        <input name="cecky" id="checky" value="1" type="checkbox" /><label class="terms">Remember Me?</label>
-                    </div>
-                    <a id="submit" href="#">Login</a>
-                </div>
-            </form>*@
-        </div>
+                </form>*@
+            </div>
+        }
     </div>
 </div>
 
