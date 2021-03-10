@@ -1,0 +1,40 @@
+﻿@model hunger_solver.Models.VolunteerLogin
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="login-container">
+        <div id="login">
+            <div class="header">
+                <h1>Login</h1>
+                <p>You have to fill out this form</p>
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="sep"></div>
+            <div class="inputs">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                <input type="submit" value="Login" id="submit" />
+
+            </div>
+        </div>
+    </div>
+}
+<div class="gap-in-login-page">
+
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -115,3 +115,15 @@ F:\3.2\Software Development\hunger-solver\hunger-solver\obj\Debug\hunger-solver.
 F:\3.2\Software Development\hunger-solver\hunger-solver\obj\Debug\hunger-solver.dll
 F:\3.2\Software Development\hunger-solver\hunger-solver\obj\Debug\hunger-solver.pdb
 F:\3.2\Software Development\hunger-solver\hunger-solver\obj\Debug\hunger-solver.csprojAssemblyReference.cache
+F:\3.2\Software Development\hunger-solver\hunger-solver\bin\FireSharp.dll
+F:\3.2\Software Development\hunger-solver\hunger-solver\bin\Microsoft.Threading.Tasks.dll
+F:\3.2\Software Development\hunger-solver\hunger-solver\bin\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+F:\3.2\Software Development\hunger-solver\hunger-solver\bin\Microsoft.Threading.Tasks.Extensions.dll
+F:\3.2\Software Development\hunger-solver\hunger-solver\bin\System.Net.Http.Extensions.dll
+F:\3.2\Software Development\hunger-solver\hunger-solver\bin\System.Net.Http.Primitives.dll
+F:\3.2\Software Development\hunger-solver\hunger-solver\bin\Microsoft.Threading.Tasks.xml
+F:\3.2\Software Development\hunger-solver\hunger-solver\bin\Microsoft.Threading.Tasks.Extensions.xml
+F:\3.2\Software Development\hunger-solver\hunger-solver\bin\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+F:\3.2\Software Development\hunger-solver\hunger-solver\bin\System.Net.Http.Extensions.xml
+F:\3.2\Software Development\hunger-solver\hunger-solver\bin\System.Net.Http.Primitives.xml
+F:\3.2\Software Development\hunger-solver\hunger-solver\obj\Debug\hunger-solver.csproj.App.config

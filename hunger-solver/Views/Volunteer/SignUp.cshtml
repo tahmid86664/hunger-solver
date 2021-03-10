@@ -1,14 +1,14 @@
-﻿@model hunger_solver.Models.SignUpModel
+﻿@model hunger_solver.Models.VolunteerSignup
 
 @{
     ViewBag.Title = "SignUp";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-wrapper">
         <div class="signup-container">
             <div id="signup">
@@ -28,13 +28,15 @@
                     @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "", placeholder = "Password" } })
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
 
-                    @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "", placeholder = "Mobile", type="tel"}})
+                    @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "", placeholder = "Mobile", type = "tel" } })
                     @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+
+                    @Html.EditorFor(model => model.NID, new { htmlAttributes = new { @class = "", placeholder = "NID No.", type = "tel" } })
+                    @Html.ValidationMessageFor(model => model.NID, "", new { @class = "text-danger" })
 
                     @Html.ActionLink("Already have an account? Login please.", "Login", "User")
 
                     <input type="submit" value="Sign Up" id="submit" />
-                    <input type="submit" value="Sign up using Google" id="google_submit" />
                 </div>
             </div>
         </div>
@@ -48,3 +50,4 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+

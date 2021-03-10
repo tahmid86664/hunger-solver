@@ -6,7 +6,7 @@ using System.Web;
 
 namespace hunger_solver.Models
 {
-    public class Donator
+    public class Volunteer
     {
         [Key]
         public string _id { get; set; }
@@ -30,6 +30,10 @@ namespace hunger_solver.Models
         [Display(Name = "Mobile")]
         public string Mobile { get; set; }
 
+        [Required]
+        [RegularExpression("[0-9]", ErrorMessage = "Please enter digit")]
+        [Display(Name = "NID")]
+        public string NID { get; set; }
 
         // edit in dashboard
         public string Image { get; set; }
@@ -39,6 +43,5 @@ namespace hunger_solver.Models
         public string AmountOfClothDonation { get; set; }
         public string AmountOfMoneyDonation { get; set; }
         public string AmountOfBloodDonation { get; set; }
-
     }
 }

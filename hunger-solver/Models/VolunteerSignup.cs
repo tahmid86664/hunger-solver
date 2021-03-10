@@ -6,10 +6,10 @@ using System.Web;
 
 namespace hunger_solver.Models
 {
-    public class Donator
+    public class VolunteerSignup
     {
         [Key]
-        public string _id { get; set; }
+        public string id { get; set; }
 
         [Required]
         [Display(Name = "Name")]
@@ -26,19 +26,14 @@ namespace hunger_solver.Models
         public string Password { get; set; }
 
         [Required]
+        [RegularExpression("[0][1][1-9]{1}[0-9]{8}", ErrorMessage = "Please enter 11 digit mobile number")]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Mobile")]
         public string Mobile { get; set; }
 
-
-        // edit in dashboard
-        public string Image { get; set; }
-        public string Address { get; set; }
-        public string BloodGroup { get; set; }
-        public string AmountOfFoodDonation { get; set; }
-        public string AmountOfClothDonation { get; set; }
-        public string AmountOfMoneyDonation { get; set; }
-        public string AmountOfBloodDonation { get; set; }
-
+        [Required]
+        [RegularExpression("[0-9]", ErrorMessage = "Please enter digit")]
+        [Display(Name = "NID")]
+        public string NID { get; set; }
     }
 }

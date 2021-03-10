@@ -1,58 +1,44 @@
-﻿using System;
+﻿using Firebase.Auth;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Security.Claims;
-using Firebase.Auth;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin;
-using Owin;
-using Microsoft.Owin.Security;
-using hunger_solver.Models;
-using System.Diagnostics;
-using FireSharp.Interfaces;
-using FireSharp.Response;
 
 namespace hunger_solver.Controllers
 {
-    public class UserController : Controller
+    public class VolunteerController : Controller
     {
+        // variables
         private static string ApiKey = "AIzaSyDmBVtxgVhAJUokqpqid2UC2Gwc3gRsGG8";
         private static string Bucket = "https://hunger-solver-3237d-default-rtdb.firebaseio.com/";
 
-        // firebase configurattion
-        IFirebaseConfig firebaseConfig = new FireSharp.Config.FirebaseConfig
-        {
-            AuthSecret = "MyHyxpAMW7Y08rDvUIAYyEwFfFpe9VgcpfvlGWT8",
-            BasePath = Bucket
-        };
-        IFirebaseClient firebaseClient;
+        // firebase authentication
 
+
+        // signup
         [HttpGet]
-        public ActionResult SignUp()
+        public ActionResult Signup()
         {
             return View();
         }
-
-        // edited 05 March
+        
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> SignUp(SignUpModel model, Models.Donator user)
+        public async Task<ActionResult> SignUp(Models.VolunteerSignup model, Models.Volunteer volunteer)
         {
             try
             {
-                user.Email = model.Email;
-                user.Name = model.Name;
-                user.Password = model.Password;
-                user.Mobile = model.Mobile;
-
                 var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
 
                 var a = await auth.CreateUserWithEmailAndPasswordAsync(model.Email, model.Password, model.Name, true);
                 ModelState.AddModelError(string.Empty, "Please verify your email then login please.");
-                CreateUser(user);
+                // CreateVolunteer(user);
             }
             catch (Exception ex)
             {
@@ -62,33 +48,9 @@ namespace hunger_solver.Controllers
             return View();
         }
 
-        //after signing up the data should be in the database
-        public void CreateUser(Models.Donator user)
-        {
-            try
-            {
-                AddUserToFirebase(user);
-                ModelState.AddModelError(string.Empty, "Added Successfully");
-                Console.WriteLine("Added Successfully");
-            }
-            catch(Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, ex.Message);
-                Console.WriteLine("exception from Create User: " + ex.Message);
-            }
-        }
+        // database store
 
-        public void AddUserToFirebase(Models.Donator user)
-        {
-            firebaseClient = new FireSharp.FirebaseClient(firebaseConfig);
-            var data = user;
-            PushResponse response = firebaseClient.Push("Donator/", data);
-            data._id = response.Result.name;
-            SetResponse setResponse = firebaseClient.Set("Donator/" + data._id, data);
-        } 
-
-
-        //edited 05 March
+        // login authentication
         [AllowAnonymous]
         [HttpGet]
         public ActionResult Login(string returnUrl)
@@ -116,7 +78,7 @@ namespace hunger_solver.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(Models.LoginViewModel model, string returnUrl)
         {
 
             try
@@ -127,15 +89,15 @@ namespace hunger_solver.Controllers
                     var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
                     var ab = await auth.SignInWithEmailAndPasswordAsync(model.Email, model.Password);
                     string token = ab.FirebaseToken;
-                    var user = ab.User;
+                    var volunteer = ab.User;
                     if (token != "")
                     {
                         Debug.WriteLine("logged in");
                         Debug.WriteLine(ab);
                         Debug.WriteLine(token);
-                        ViewBag.User = user;
-                        this.SignInUser(user.Email, token, false);
-                        return this.RedirectToLocal("/Dashboard", user);
+                        ViewBag.User = volunteer;
+                        this.SignInUser(volunteer.Email, token, false);
+                        return this.RedirectToLocal("/Dashboard", volunteer);
 
                     }
                     else
@@ -176,7 +138,7 @@ namespace hunger_solver.Controllers
             catch (Exception ex)
             {
                 // Info
-                Debug.WriteLine("I'm from signInUser exception"); 
+                Debug.WriteLine("I'm from signInUser exception");
                 //throw ex;
             }
         }
