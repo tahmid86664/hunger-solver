@@ -20,11 +20,22 @@
                     </button>
                     @Html.ActionLink("Hunger Solver", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
-                <div class="navbar-collapse collapse">
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Donations
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @Html.ActionLink("Food Donation", "FoodDonation", "Donation", new { @class = "dropdown-item" })
+                                @Html.ActionLink("Cloth Donation", "ClothDonation", "Donation", new { @class = "dropdown-item" })
+                                @Html.ActionLink("Money Donation", "MoneyDonation", "Donation", new { @class = "dropdown-item" })
+                                @Html.ActionLink("Blood Donation", "BloodDonation", "Donation", new { @class = "dropdown-item" })
+                            </div>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
                         @if (!User.Identity.IsAuthenticated)

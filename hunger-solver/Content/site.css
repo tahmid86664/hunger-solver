@@ -346,6 +346,13 @@ input:-moz-placeholder {
     color: #ebf218;
 }
 
+
+/* ===== dropdown ========*/
+.dropdown-item {
+    display: block;
+    text-decoration: none;
+}
+
 /* ========== home body css  end ========== */
 
 

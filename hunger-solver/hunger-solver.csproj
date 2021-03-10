@@ -323,12 +323,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VolunteerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FoodDonation.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -396,6 +398,10 @@
     <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\Dashboard\PersonalInfo.cshtml" />
     <Content Include="Views\Volunteer\Index.cshtml" />
+    <Content Include="Views\Donation\FoodDonation.cshtml" />
+    <Content Include="Views\Donation\ClothDonation.cshtml" />
+    <Content Include="Views\Donation\MoneyDonation.cshtml" />
+    <Content Include="Views\Donation\BloodDonation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
