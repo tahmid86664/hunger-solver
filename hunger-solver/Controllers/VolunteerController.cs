@@ -119,7 +119,7 @@ namespace hunger_solver.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Login(Models.LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(Models.VolunteerLogin model, string returnUrl)
         {
 
             try
@@ -253,13 +253,14 @@ namespace hunger_solver.Controllers
             var authenticationManager = ctx.Authentication;
             authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             Debug.WriteLine("Logged out");
+            Session["volunteer"] = null;
             return RedirectToAction("Index", "Home");
         }
 
         private List<Volunteer> ReadVolunteerFromFirebase()
         {
             firebaseClient = new FireSharp.FirebaseClient(firebaseConfig);
-            FirebaseResponse response = firebaseClient.Get("Donator");
+            FirebaseResponse response = firebaseClient.Get("Volunteer");
             dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
             var list = new List<Volunteer>();
             foreach (var item in data)

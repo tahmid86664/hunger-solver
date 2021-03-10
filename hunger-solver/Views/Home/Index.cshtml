@@ -21,9 +21,9 @@
                             <h1>Login</h1>
                             <p>You have to fill out this form</p>
                         </div>
-                    
+
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="sep"></div>            
+                        <div class="sep"></div>
                         <div class="inputs">
                             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "", placeholder = "Email" } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
@@ -36,20 +36,20 @@
                     </div>
                 }
                 @*<form id="login" method="post">
-                    <div class="header">
-                        <h1>Login</h1>
-                        <p>You have to fill out this form</p>
-                    </div>
-                    <div class="sep"></div>
-                    <div class="inputs">
-                        <input type="email" placeholder="e-mail" autofocus />
-                        <input type="password" placeholder="Password" />
-                        <div class="checkboxy">
-                            <input name="cecky" id="checky" value="1" type="checkbox" /><label class="terms">Remember Me?</label>
+                        <div class="header">
+                            <h1>Login</h1>
+                            <p>You have to fill out this form</p>
                         </div>
-                        <a id="submit" href="#">Login</a>
-                    </div>
-                </form>*@
+                        <div class="sep"></div>
+                        <div class="inputs">
+                            <input type="email" placeholder="e-mail" autofocus />
+                            <input type="password" placeholder="Password" />
+                            <div class="checkboxy">
+                                <input name="cecky" id="checky" value="1" type="checkbox" /><label class="terms">Remember Me?</label>
+                            </div>
+                            <a id="submit" href="#">Login</a>
+                        </div>
+                    </form>*@
             </div>
         }
     </div>
@@ -106,9 +106,12 @@
     </div>
 </div>
 
-<div id="want-to-be-volunteer">
-    @Html.ActionLink("Do you want to be a volunteer", "Signup", "Volunteer")
-</div>
+@if (!User.Identity.IsAuthenticated)
+{
+    <div id="want-to-be-volunteer">
+        @Html.ActionLink("Do you want to be a volunteer", "Signup", "Volunteer")
+    </div>
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

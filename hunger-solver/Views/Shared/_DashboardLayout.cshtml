@@ -1,7 +1,19 @@
 ﻿
 @{
     Layout = null;
+    ViewBag.user = null;
     ViewBag.donator = Session["donator"];
+    ViewBag.volunteer = Session["volunteer"];
+    if (ViewBag.volunteer != null)
+    {
+        ViewBag.user = ViewBag.volunteer;
+        ViewBag.donator = null;
+    }
+    if(ViewBag.donator != null)
+    {
+        ViewBag.user = ViewBag.donator;
+        ViewBag.volunteer = null;
+    }
 }
 
 <!DOCTYPE html>
@@ -20,12 +32,19 @@
                     <img src="~/images/user_dummy.png" alt="profile image"/>
                 </div>
                 <div class="sidebar_profile_name">
-                    @ViewBag.donator.Name
+                    <a href="/Dashboard">@ViewBag.user.Name</a>
                 </div>
             </div>
             <div class="separator"></div>
             <div class="sidebar_buttons">
-                @Html.ActionLink("Personal Info", "PersonalInfo", "Dashboard")
+                <div class="sidebar-options">
+                    <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
+                    @Html.ActionLink("Dashboard Home", "Index", "Dashboard")
+                </div>
+                <div class="sidebar-options">
+                    <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
+                    @Html.ActionLink("Personal Info", "PersonalInfo", "Dashboard")
+                </div>
             </div>
             <div class="sidebar_bottom">
 
@@ -37,7 +56,14 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Logout", "Logoff", "User")</li>
+                        if (ViewBag.donator != null)
+                        {
+                            <li>@Html.ActionLink("Logout", "Logoff", "User")</li>
+                        }
+                        if (ViewBag.volunteer != null)
+                        {
+                            <li>@Html.ActionLink("Logout", "Logoff", "Volunteer")</li>
+                        }
                     }
                 </ul>
             </div>

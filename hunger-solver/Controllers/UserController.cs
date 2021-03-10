@@ -254,6 +254,7 @@ namespace hunger_solver.Controllers
             var authenticationManager = ctx.Authentication;
             authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             Debug.WriteLine("Logged out");
+            Session["donator"] = null;
             return RedirectToAction("Index", "Home");
         }
 

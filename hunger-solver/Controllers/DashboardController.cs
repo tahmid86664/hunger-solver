@@ -15,10 +15,10 @@ namespace hunger_solver.Controllers
         public ActionResult Index()
         {
             //Session["donator"] = (Donator)TempData["donator"];
-            donator = (Donator)Session["donator"];
-            Debug.WriteLine("from dashboard " + donator.Email);
+            //donator = (Donator)Session["donator"];
+            //Debug.WriteLine("from dashboard " + donator.Email);
             //ViewBag.donator = donator;
-            return View(donator);
+            return View();
         }
 
         public ActionResult Index2()

@@ -66,6 +66,11 @@
     text-align: center;
 }
 
+.sidebar_profile_name a {
+    text-decoration: none;
+    color: white;
+}
+
 .dashboard-nav {
     margin-bottom: 0;
     display: flex;
@@ -82,12 +87,42 @@
     text-decoration: none; 
 }
 
+.separator {
+    width: auto;
+    height: 20px;
+    border-bottom: 2px solid #fff;
+    margin-bottom: 10px;
+}
 
+.sidebar_buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
+.sidebar-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 15px 40px;
+    align-items: center;
+}
 
+.sidebar-options img {
+    width: 25px;
+    height: 25px;
+}
 
+.sidebar-options a {
+    text-decoration: none;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
 
-
+.sidebar-options a:hover {
+    color: #fcff99;
+}
 
 
 

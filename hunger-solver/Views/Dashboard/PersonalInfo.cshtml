@@ -2,8 +2,25 @@
 @{
     ViewBag.Title = "PersonalInfo";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewBag.user = null;
     ViewBag.donator = Session["donator"];
+    ViewBag.volunteer = Session["volunteer"];
+    if (ViewBag.volunteer != null)
+    {
+        ViewBag.user = ViewBag.volunteer;
+        ViewBag.donator = null;
+    }
+    if (ViewBag.donator != null)
+    {
+        ViewBag.user = ViewBag.donator;
+        ViewBag.volunteer = null;
+    }
 }
 
 <h2>PersonalInfo</h2>
+<div class="personal-info">
+    <div><span>Name: </span>@ViewBag.user.Name</div>
+    <div><span>Email: </span>@ViewBag.user.Email</div>
+    <div><span>Mobile: </span>@ViewBag.user.Mobile</div>
+</div>
 

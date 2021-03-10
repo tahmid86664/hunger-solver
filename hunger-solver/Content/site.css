@@ -313,8 +313,9 @@ input:-moz-placeholder {
 /* ----- want to be a volunteer ----- */
 #want-to-be-volunteer {
     position: fixed;
-    bottom: 250px;
+    bottom: 100px;
     right: 0;
+    z-index: 10;
     background: -moz-linear-gradient( top, #b9c5dd 0%, #a4b0cb);
     background: -webkit-gradient( linear, left top, left bottom, from(#b9c5dd), to(#a4b0cb));
     padding: 15px 5px 15px 15px;
