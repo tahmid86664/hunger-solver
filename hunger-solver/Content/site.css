@@ -23,6 +23,16 @@ a.navbar-brand {
 }
 
 
+/* ===== alert msg =====*/
+#alert-msg {
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+    padding: 20px 15px;
+    background-color: red;
+    color: #fff;
+}
+
 /* ========== top banner css start ========== */
 .top_container {
     margin: 0;
@@ -348,9 +358,10 @@ input:-moz-placeholder {
 
 
 /* ===== dropdown ========*/
-.dropdown-item {
+.dropdown-menu a {
     display: block;
     text-decoration: none;
+    padding: 10px 5px;
 }
 
 /* ========== home body css  end ========== */

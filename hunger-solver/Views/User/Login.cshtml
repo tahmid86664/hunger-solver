@@ -5,10 +5,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm()) 
+
+@if (ViewData["alertMsg"] != null)
+{
+    <div class="container">
+        <div id="alert-msg">
+            @ViewData["alertMsg"]
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="login-container">
         <div id="login">
             <div class="header">
@@ -24,6 +34,8 @@
                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "", placeholder = "Password" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
 
+                @Html.ActionLink("Don't have an account? Please signup", "Signup", "User")
+
                 <input type="submit" value="Login" id="submit" />
 
             </div>
@@ -33,6 +45,7 @@
 <div class="gap-in-login-page">
 
 </div>
+
 
 
 @section Scripts {

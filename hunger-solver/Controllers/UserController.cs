@@ -111,6 +111,8 @@ namespace hunger_solver.Controllers
             }
 
             // Info.
+            ViewData["alertMsg"] = TempData["alertMsg"];
+            Debug.WriteLine(ViewData["alertMsg"]);
             return this.View();
         }
 

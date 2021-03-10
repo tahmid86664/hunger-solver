@@ -1,6 +1,15 @@
-﻿using System;
+﻿using FireSharp.Interfaces;
+using FireSharp.Response;
+using hunger_solver.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,25 +17,232 @@ namespace hunger_solver.Controllers
 {
     public class DonationController : Controller
     {
-        // GET: Donation
+        // Variables
+        private static string ApiKey = "AIzaSyDmBVtxgVhAJUokqpqid2UC2Gwc3gRsGG8";
+        private static string Bucket = "https://hunger-solver-3237d-default-rtdb.firebaseio.com/";
+
+        // firebase config
+        IFirebaseConfig firebaseConfig = new FireSharp.Config.FirebaseConfig
+        {
+            AuthSecret = "MyHyxpAMW7Y08rDvUIAYyEwFfFpe9VgcpfvlGWT8",
+            BasePath = Bucket
+        };
+        IFirebaseClient firebaseClient;
+
+        [HttpGet]
         public ActionResult FoodDonation()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+                return View();
+            TempData["alertMsg"] = "Please login first";
+            return Redirect("/User/Login");
         }
 
+        [HttpGet]
         public ActionResult ClothDonation()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+                return View();
+            TempData["alertMsg"] = "Please login first";
+            return Redirect("/User/Login");
         }
 
+        [HttpGet]
         public ActionResult MoneyDonation()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+                return View();
+            TempData["alertMsg"] = "Please login first";
+            return Redirect("/User/Login");
         }
 
         public ActionResult BloodDonation()
         {
+            if (User.Identity.IsAuthenticated)
+                return View();
+            TempData["alertMsg"] = "Please login first";
+            return Redirect("/User/Login");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> FoodDonation(FoodDonation model)
+        {
+            try
+            {                
+                Donator donator = (Donator)Session["donator"];
+                model.DonatorName = donator.Name;
+                model.DonatorEmail = donator.Email;
+                model.Date = DateTime.Now;
+                model.Place = "Motijheel";
+                model.IsTaken = false;
+                model.IsDelivered = false;
+                
+
+                /* ================== send e-mail to volunteer ================ */
+                var bodyMessage = "You have a notification for food donation";
+                var body = "<p>Email From: {0} ({1})</p><p>Message: </p><p>{2}</p>";
+                var message = new MailMessage();
+                var volunteerList = ReadVolunteerFromFirebase();
+                // recipient mail (we have to send the notification to all volunteer)
+                foreach (var v in volunteerList)
+                {
+                    message.To.Add(new MailAddress(v.Email));
+                }
+                message.From = new MailAddress("techtoon526628@gmail.com");  // sender mail
+                message.Subject = "Notifications for food donation from Hunger Solver";
+                message.Body = string.Format(body, model.DonatorName, model.DonatorEmail, bodyMessage);
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    // the following information is fixed for gmail
+                    // for outlook the host should be "smtp-mail.outlook.com"
+                    // configuration for the Client 
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "techtoon526628@gmail.com",  // sender mail
+                        Password = "#526628Tahmid"  // sender pass
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                }
+
+                CreateFoodDonationToFirebase(model);
+
+                return this.Redirect("/Donation/FoodDonation");
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine("Exception from FoodDonation Submit: " + e);
+            }
+
             return View();
+        }
+
+        public void CreateFoodDonationToFirebase(FoodDonation food)
+        {
+            try
+            {
+                AddFoodDonationToFirebase(food);
+                ModelState.AddModelError(string.Empty, "Submitted Successfully");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                Debug.WriteLine("exception from Create food donation: " + ex.Message);
+            }
+        }
+
+        public void AddFoodDonationToFirebase(FoodDonation food)
+        {
+            firebaseClient = new FireSharp.FirebaseClient(firebaseConfig);
+            var data = food;
+            PushResponse response = firebaseClient.Push("FoodDonation/", data);
+            data._id = response.Result.name;
+            SetResponse setResponse = firebaseClient.Set("FoodDonation/" + data._id, data);
+        }
+
+        // cloth
+        [HttpPost]
+        public async Task<ActionResult> ClothDonation(ClothDonation model)
+        {
+            try
+            {                
+                Donator donator = (Donator)Session["donator"];
+                model.DonatorName = donator.Name;
+                model.DonatorEmail = donator.Email;
+                model.Date = DateTime.Now;
+                model.Place = "Motijheel";
+                model.IsTaken = false;
+                model.IsDelivered = false;
+                
+
+                /* ================== send e-mail to volunteer ================ */
+                var bodyMessage = "You have a notification for cloth donation";
+                var body = "<p>Email From: {0} ({1})</p><p>Message: </p><p>{2}</p>";
+                var message = new MailMessage();
+                var volunteerList = ReadVolunteerFromFirebase();
+                // recipient mail (we have to send the notification to all volunteer)
+                foreach (var v in volunteerList)
+                {
+                    message.To.Add(new MailAddress(v.Email));
+                }
+                message.From = new MailAddress("techtoon526628@gmail.com");  // sender mail
+                message.Subject = "Notifications for cloth donation from Hunger Solver";
+                message.Body = string.Format(body, model.DonatorName, model.DonatorEmail, bodyMessage);
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    // the following information is fixed for gmail
+                    // for outlook the host should be "smtp-mail.outlook.com"
+                    // configuration for the Client 
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "techtoon526628@gmail.com",  // sender mail
+                        Password = "#526628Tahmid"  // sender pass
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                }
+
+                CreateClothDonationToFirebase(model);
+
+                return this.Redirect("/Donation/ClothDonation");
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine("Exception from ClothDonation Submit: " + e);
+            }
+
+            return View();
+        }
+
+        public void CreateClothDonationToFirebase(ClothDonation cloth)
+        {
+            try
+            {
+                AddClothDonationToFirebase(cloth);
+                ModelState.AddModelError(string.Empty, "Submitted Successfully");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                Debug.WriteLine("exception from Create cloth donation: " + ex.Message);
+            }
+        }
+
+        public void AddClothDonationToFirebase(ClothDonation cloth)
+        {
+            firebaseClient = new FireSharp.FirebaseClient(firebaseConfig);
+            var data = cloth;
+            PushResponse response = firebaseClient.Push("ClothDonation/", data);
+            data._id = response.Result.name;
+            SetResponse setResponse = firebaseClient.Set("ClothDonation/" + data._id, data);
+        }
+
+
+
+
+        // get the volunteers
+        private List<Volunteer> ReadVolunteerFromFirebase()
+        {
+            firebaseClient = new FireSharp.FirebaseClient(firebaseConfig);
+            FirebaseResponse response = firebaseClient.Get("Volunteer");
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
+            var list = new List<Volunteer>();
+            foreach (var item in data)
+            {
+                list.Add(JsonConvert.DeserializeObject<Volunteer>(((JProperty)item).Value.ToString()));
+            }
+
+            return list;
         }
     }
 }

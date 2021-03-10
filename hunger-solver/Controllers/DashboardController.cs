@@ -10,7 +10,6 @@ namespace hunger_solver.Controllers
 {
     public class DashboardController : Controller
     {
-        private static Donator donator;
         // GET: Dashboard
         public ActionResult Index()
         {

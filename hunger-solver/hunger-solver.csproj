@@ -330,10 +330,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BloodDonation.cs" />
+    <Compile Include="Models\ClothDonation.cs" />
     <Compile Include="Models\FoodDonation.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MoneyDonation.cs" />
     <Compile Include="Models\SignUpModel.cs" />
     <Compile Include="Models\Donator.cs" />
     <Compile Include="Models\Volunteer.cs" />
@@ -349,6 +352,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dashboard.css" />
+    <Content Include="Content\donation.css" />
     <Content Include="Content\signup.css" />
     <Content Include="Content\site.css" />
     <Content Include="favicon.ico" />
