@@ -12,6 +12,8 @@ using Owin;
 using Microsoft.Owin.Security;
 using hunger_solver.Models;
 using System.Diagnostics;
+using FireSharp.Interfaces;
+using FireSharp.Response;
 
 namespace hunger_solver.Controllers
 {
@@ -20,6 +22,15 @@ namespace hunger_solver.Controllers
         private static string ApiKey = "AIzaSyDmBVtxgVhAJUokqpqid2UC2Gwc3gRsGG8";
         private static string Bucket = "https://hunger-solver-3237d-default-rtdb.firebaseio.com/";
 
+        // firebase configurattion
+        IFirebaseConfig firebaseConfig = new FireSharp.Config.FirebaseConfig
+        {
+            AuthSecret = "MyHyxpAMW7Y08rDvUIAYyEwFfFpe9VgcpfvlGWT8",
+            BasePath = "https://hunger-solver-3237d-default-rtdb.firebaseio.com/"
+        };
+        IFirebaseClient firebaseClient;
+
+        [HttpGet]
         public ActionResult SignUp()
         {
             return View();
@@ -45,10 +56,29 @@ namespace hunger_solver.Controllers
             return View();
         }
 
-        //public IActionResult Login()
-        //{
-        //    return View();
-        //}
+        //after signing up the data should be in the database
+        public void CreateUser( user)
+        {
+            try
+            {
+                AddUserToFirebase(user);
+                ModelState.AddModelError(string.Empty, "Added Successfully");
+                Console.WriteLine("Added Successfully");
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                Console.WriteLine("exception from Create User: " + ex.Message);
+            }
+        }
+
+        public void AddUserToFirebase( user)
+        {
+            firebaseClient = new FireSharp.FirebaseClient(firebaseConfig);
+            var data = user;
+            PushResponse response = firebaseClient.Push("Users/", data);
+            data._id = response.Result.name;
+        } 
 
 
         //edited today
@@ -75,7 +105,6 @@ namespace hunger_solver.Controllers
             return this.View();
         }
 
-        //after signing up the data should be in the database
 
 
         [HttpPost]

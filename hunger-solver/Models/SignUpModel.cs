@@ -9,7 +9,7 @@ namespace hunger_solver.Models
     public class SignUpModel
     {
         [Key]
-        public int id { get; set; }
+        public string id { get; set; }
 
         [Required]
         [Display(Name = "Name")]
