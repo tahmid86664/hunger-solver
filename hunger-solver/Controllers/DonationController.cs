@@ -227,6 +227,88 @@ namespace hunger_solver.Controllers
             SetResponse setResponse = firebaseClient.Set("ClothDonation/" + data._id, data);
         }
 
+        // money
+        [HttpPost]
+        public async Task<ActionResult> MoneyDonation(MoneyDonation model)
+        {
+            try
+            {                
+                Donator donator = (Donator)Session["donator"];
+                model.DonatorName = donator.Name;
+                model.DonatorEmail = donator.Email;
+                model.Date = DateTime.Now;
+                model.Place = "Motijheel";
+                model.IsTaken = false;
+                model.IsDelivered = false;
+                
+
+                /* ================== send e-mail to volunteer ================ */
+                var bodyMessage = "You have a notification for money donation";
+                var body = "<p>Email From: {0} ({1})</p><p>Message: </p><p>{2}</p>";
+                var message = new MailMessage();
+                var volunteerList = ReadVolunteerFromFirebase();
+                // recipient mail (we have to send the notification to all volunteer)
+                foreach (var v in volunteerList)
+                {
+                    message.To.Add(new MailAddress(v.Email));
+                }
+                message.From = new MailAddress("techtoon526628@gmail.com");  // sender mail
+                message.Subject = "Notifications for money donation from Hunger Solver";
+                message.Body = string.Format(body, model.DonatorName, model.DonatorEmail, bodyMessage);
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    // the following information is fixed for gmail
+                    // for outlook the host should be "smtp-mail.outlook.com"
+                    // configuration for the Client 
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "techtoon526628@gmail.com",  // sender mail
+                        Password = "#526628Tahmid"  // sender pass
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                }
+
+                CreateMoneyDonationToFirebase(model);
+
+                return this.Redirect("/Donation/MoneyDonation");
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine("Exception from MoneyDonation Submit: " + e);
+            }
+
+            return View();
+        }
+
+        public void CreateMoneyDonationToFirebase(MoneyDonation money)
+        {
+            try
+            {
+                AddMoneyDonationToFirebase(money);
+                ModelState.AddModelError(string.Empty, "Submitted Successfully");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                Debug.WriteLine("exception from Create money donation: " + ex.Message);
+            }
+        }
+
+        public void AddMoneyDonationToFirebase(MoneyDonation money)
+        {
+            firebaseClient = new FireSharp.FirebaseClient(firebaseConfig);
+            var data = money;
+            PushResponse response = firebaseClient.Push("MoneyDonation/", data);
+            data._id = response.Result.name;
+            SetResponse setResponse = firebaseClient.Set("MoneyDonation/" + data._id, data);
+        }
+
 
 
 
