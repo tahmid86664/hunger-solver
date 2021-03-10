@@ -13,7 +13,7 @@
         <div class="signup-container">
             <div id="signup">
                 <div class="header">
-                    <h1>Sign up</h1>
+                    <h1>Sign up as Volunteeer</h1>
                     <p>Fill the form to sign up</p>
                 </div>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -34,7 +34,7 @@
                     @Html.EditorFor(model => model.NID, new { htmlAttributes = new { @class = "", placeholder = "NID No.", type = "tel" } })
                     @Html.ValidationMessageFor(model => model.NID, "", new { @class = "text-danger" })
 
-                    @Html.ActionLink("Already have an account? Login please.", "Login", "User")
+                    @Html.ActionLink("Already have an account? Login please.", "Login", "Volunteer")
 
                     <input type="submit" value="Sign Up" id="submit" />
                 </div>

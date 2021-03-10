@@ -14,6 +14,8 @@ using hunger_solver.Models;
 using System.Diagnostics;
 using FireSharp.Interfaces;
 using FireSharp.Response;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace hunger_solver.Controllers
 {
@@ -128,21 +130,42 @@ namespace hunger_solver.Controllers
                     var ab = await auth.SignInWithEmailAndPasswordAsync(model.Email, model.Password);
                     string token = ab.FirebaseToken;
                     var user = ab.User;
+                    Donator donator = null;
+                    bool isDonator = false;
                     if (token != "")
                     {
-                        Debug.WriteLine("logged in");
-                        Debug.WriteLine(ab);
-                        Debug.WriteLine(token);
-                        ViewBag.User = user;
-                        this.SignInUser(user.Email, token, false);
-                        return this.RedirectToLocal("/Dashboard", user);
+                        // need to read user data for varifying user or volunteer
+                        var list = ReadUserFromFirebase();
+                        foreach(var i in list)
+                        {
+                            //Debug.WriteLine(i.Email);
+                            if(user.Email == i.Email){
+                                donator = i;
+                                isDonator = true;
+                            }
+                        }
 
+                        if (isDonator) { 
+                            // complete then login
+                            Debug.WriteLine("logged in");
+                            Debug.WriteLine(ab);
+                            Debug.WriteLine(token);
+                            Debug.WriteLine(donator);
+                            ViewBag.User = user;
+                            this.SignInUser(user.Email, token, false);
+                            Session["donator"] = donator;
+                            return this.RedirectToLocal(string.Format("/Dashboard?user={0}", donator), user);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(string.Empty, "If you're volunteer then login from volunteer login page");
+                        }
                     }
                     else
                     {
                         // Setting.
                         Debug.Write("Invalid username and pass");
-                        ModelState.AddModelError(string.Empty, "Invalid username or password.");
+                        ModelState.AddModelError(string.Empty, "Invalid username or password");
                     }
                 }
             }
@@ -150,6 +173,7 @@ namespace hunger_solver.Controllers
             {
                 // Info
                 Debug.WriteLine("I'm from LoginAction exception");
+                ModelState.AddModelError(string.Empty, "Invalid username or password.");
                 //throw ex;
             }
 
@@ -231,6 +255,20 @@ namespace hunger_solver.Controllers
             authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             Debug.WriteLine("Logged out");
             return RedirectToAction("Index", "Home");
+        }
+
+        private List<Donator> ReadUserFromFirebase()
+        {
+            firebaseClient = new FireSharp.FirebaseClient(firebaseConfig);
+            FirebaseResponse response = firebaseClient.Get("Donator");
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
+            var list = new List<Donator>();
+            foreach (var item in data)
+            {
+                list.Add(JsonConvert.DeserializeObject<Donator>(((JProperty)item).Value.ToString()));
+            }
+
+            return list;
         }
     }
 }

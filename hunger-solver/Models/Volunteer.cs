@@ -31,11 +31,11 @@ namespace hunger_solver.Models
         public string Mobile { get; set; }
 
         [Required]
-        [RegularExpression("[0-9]", ErrorMessage = "Please enter digit")]
         [Display(Name = "NID")]
         public string NID { get; set; }
 
         // edit in dashboard
+        public string Designation { get; set; }
         public string Image { get; set; }
         public string Address { get; set; }
         public string BloodGroup { get; set; }

@@ -393,6 +393,8 @@
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Volunteer\SignUp.cshtml" />
     <Content Include="Views\Volunteer\Login.cshtml" />
+    <Content Include="Views\Dashboard\Index2.cshtml" />
+    <Content Include="Views\Dashboard\PersonalInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

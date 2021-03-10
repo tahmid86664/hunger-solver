@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = null;
+    ViewBag.donator = Session["donator"];
 }
 
 <!DOCTYPE html>
@@ -19,12 +20,12 @@
                     <img src="~/images/user_dummy.png" alt="profile image"/>
                 </div>
                 <div class="sidebar_profile_name">
-                    Lorem Ipsum Name
+                    @ViewBag.donator.Name
                 </div>
             </div>
             <div class="separator"></div>
             <div class="sidebar_buttons">
-
+                @Html.ActionLink("Personal Info", "PersonalInfo", "Dashboard")
             </div>
             <div class="sidebar_bottom">
 

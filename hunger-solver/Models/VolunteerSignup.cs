@@ -32,7 +32,7 @@ namespace hunger_solver.Models
         public string Mobile { get; set; }
 
         [Required]
-        [RegularExpression("[0-9]", ErrorMessage = "Please enter digit")]
+        [RegularExpression("[0-9]{12}", ErrorMessage = "Please enter digit")]
         [Display(Name = "NID")]
         public string NID { get; set; }
     }

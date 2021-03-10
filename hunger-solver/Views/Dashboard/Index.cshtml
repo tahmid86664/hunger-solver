@@ -2,12 +2,15 @@
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewBag.donator = Session["donator"];
 }
 
 <div class="index-dashboard">
     <div class="top-section">
         <div class="current">
             current
+            <div>
+            </div>
         </div>
         <div class="recent">
             recent
