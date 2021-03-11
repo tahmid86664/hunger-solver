@@ -155,7 +155,7 @@ namespace hunger_solver.Controllers
                             ViewBag.User = volunteer;
                             this.SignInUser(volunteer.Email, token, false);
                             Session["volunteer"] = volunteerData;
-                            return this.RedirectToLocal(string.Format("/Dashboard?volunteer={0}", volunteerData), volunteer);
+                            return this.RedirectToLocal(string.Format("/Dashboard/Index2?volunteer={0}", volunteerData), volunteer);
                         }
                         else
                         {

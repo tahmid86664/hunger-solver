@@ -10,7 +10,6 @@ namespace hunger_solver.Controllers
     {
         public ActionResult Index()
         {
-            Session.Timeout = 10800;
             return View();
         }
 

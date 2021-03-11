@@ -1,8 +1,80 @@
 ﻿
+
 @{
-    ViewBag.Title = "Index2";
+    ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewBag.volunteer = Session["volunteer"];
+    ViewBag.foodDonationList = Session["foodDonationList"];
+    ViewBag.clothDonationList = Session["clothDonationList"];
+    ViewBag.moneyDonationList = Session["moneyDonationList"];
+    ViewBag.currentFoodList = Session["currentFoodList"];
+    ViewBag.currentClothList = Session["currentClothList"];
+    ViewBag.currentMoneyList = Session["currentMoneyList"]; 
 }
 
-<h2>Index2</h2>
+<div class="index-dashboard">
+    <div class="top-section">
+        <div class="current">
+            <h3>current</h3>
+            <div class="__current">
+                <div class="food-donation-dashboard-index">
+                    Current Food Donations:
+                    @ViewBag.currentFoodList.Count
+                    @foreach (var item in ViewBag.currentFoodList)
+                    {
+                        <div class="current-food">
+                            <span class="donation-info">Name: @item.Name</span>
+                            <span class="donation-info">Place: @item.Place</span>
+                            <input type="submit" value="Confirm" id="submit" />
+                        </div>
+                    }
+                </div>
+                <div class="food-donation-dashboard-index">
+                    Current Cloth Donations:
+                    @ViewBag.currentClothList.Count
+                    @foreach (var item in ViewBag.currentClothList)
+                    {
+                        <div class="current-cloth">
+                            <span class="donation-info">Name: @item.Name</span>
+                            <span class="donation-info">Place: @item.Place</span>
+                            <input type="submit" value="Confirm" id="submit" />
+                        </div>
+                    }
+                </div>
+                <div class="food-donation-dashboard-index">
+                    Current Money Donations:
+                    @ViewBag.currentMoneyList.Count
+                    @foreach (var item in ViewBag.currentMoneyList)
+                    {
+                        if (item.PaymentType == "Offline")
+                        {
+                            <div class="current-money">
+                                <span class="donation-info">Amount: @item.Amount</span>
+                                <span class="donation-info">Place: @item.Place</span>
+                                <input type="submit" value="Confirm" id="submit" />
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="recent">
+            <h3>recent</h3>
+        </div>
+    </div>
+    <div class="bottom-section">
+        <div class="total_food_donation">
+            <h3>Food</h3>
+        </div>
+        <div class="total_money_donation">
+            <h3>Money</h3>
+        </div>
+        <div class="total_cloth_donation">
+            <h3>Cloths</h3>
+        </div>
+        <div class="total_blood_donation">
+            <h3>Blood</h3>
+        </div>
+    </div>
+</div>
 

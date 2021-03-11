@@ -3,31 +3,143 @@
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
     ViewBag.donator = Session["donator"];
+    ViewBag.foodDonationList = Session["foodDonationList"];
+    ViewBag.clothDonationList = Session["clothDonationList"];
+    ViewBag.moneyDonationList = Session["moneyDonationList"];
+    ViewBag.currentFoodList = Session["currentFoodList"];
+    ViewBag.currentClothList = Session["currentClothList"];
+    ViewBag.currentMoneyList = Session["currentMoneyList"];
 }
 
 <div class="index-dashboard">
     <div class="top-section">
         <div class="current">
-            current
-            <div>
-            </div>
+            <h3>current</h3>
+            Current Food Donations:
+            @ViewBag.currentFoodList.Count
+            @foreach (var item in ViewBag.currentFoodList)
+            {
+                if (item.DonatorEmail == ViewBag.donator.Email)
+                {
+                    <div class="current-food">
+                        @item.Name
+                    </div>
+                }
+            }
+            Current Cloth Donations:
+            @ViewBag.currentClothList.Count
+            @foreach (var item in ViewBag.currentClothList)
+            {
+                if (item.DonatorEmail == ViewBag.donator.Email)
+                {
+                    <div class="current-cloth">
+                        @item.Name
+                    </div>
+                }
+            }
+            Current Money Donations:
+            @ViewBag.currentMoneyList.Count
+            @foreach (var item in ViewBag.currentMoneyList)
+            {
+                if (item.DonatorEmail == ViewBag.donator.Email)
+                {
+                    <div class="current-money">
+                        Amount: @item.Amount
+                    </div>
+                }
+            }
         </div>
         <div class="recent">
-            recent
+            <h3>recent</h3>
+            Recent Food Donations:
+            @foreach (var item in ViewBag.foodDonationList)
+            {
+                if (item.IsTaken && item.DonatorEmail == ViewBag.donator.Email)
+                {
+                    <div class="completed-food">
+                        <span>@item.Name</span>
+                        <span>@item.Date</span>
+                    </div>
+                }
+            }
+            <br />
+            Recent Cloth Donations:
+            @foreach (var item in ViewBag.clothDonationList)
+            {
+                if (item.IsTaken && item.DonatorEmail == ViewBag.donator.Email)
+                {
+                    <div class="completed-food">
+                        <span>@item.Name</span>
+                        <span>@item.Date</span>
+                    </div>
+                }
+            }
+            <br />
+            Recent Money Donations:
+            @foreach (var item in ViewBag.moneyDonationList)
+            {
+                if (item.IsTaken && item.DonatorEmail == ViewBag.donator.Email)
+                {
+                    <div class="completed-food">
+                        <span>@item.Name</span>
+                        <span>@item.Date</span>
+                    </div>
+                }
+            }
         </div>
     </div>
     <div class="bottom-section">
         <div class="total_food_donation">
-            Food
+            <h3>Food</h3>
+            @{ var totalFoodDonation = 0; 
+                foreach (var item in ViewBag.foodDonationList)
+                {
+                    if (item.IsTaken && item.DonatorEmail == ViewBag.donator.Email)
+                    {
+                        totalFoodDonation += 1;
+                        <div class="completed-food">
+                            <span>@item.Name</span>
+                            <span>@item.Date</span>
+                        </div>
+                    }
+                }
+            }
         </div>
         <div class="total_money_donation">
-            Money
+            <h3>Money</h3>
+            @{ var totalMoneyDonation = 0;
+                foreach (var item in ViewBag.moneyDonationList)
+                {
+                    if (item.IsTaken && item.DonatorEmail == ViewBag.donator.Email)
+                    {
+                        totalMoneyDonation += 1;
+                        <div class="completed-food">
+                            <span>@item.Name</span>
+                            <span>@item.Date</span>
+                        </div>
+                    }
+                }
+            }
         </div>
         <div class="total_cloth_donation">
-            Cloths
+            <h3>Cloths</h3>
+            @{ var totalClothDonation = 0;
+                foreach (var item in ViewBag.clothDonationList)
+                {
+                    if (item.IsTaken && item.DonatorEmail == ViewBag.donator.Email)
+                    {
+                        totalClothDonation += 1;
+                        <div class="completed-food">
+                            <span>@item.Name</span>
+                            <span>@item.Date</span>
+                        </div>
+                    }
+                }
+            }
         </div>
         <div class="total_blood_donation">
-            Blood
+            <h3>Blood</h3>
+            Currently there is no blood donation event
         </div>
     </div>
 </div>

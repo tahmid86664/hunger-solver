@@ -23,9 +23,9 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="sep"></div>
             <div class="inputs">
-             @*   @Html.EditorFor(model => model.ClothFor, new { htmlAttributes = new { @class = "", placeholder = "Female or Male?" } })
-                @Html.ValidationMessageFor(model => model.ClothFor, "", new { @class = "text-danger" })
-*@
+                @*   @Html.EditorFor(model => model.ClothFor, new { htmlAttributes = new { @class = "", placeholder = "Female or Male?" } })
+        @Html.ValidationMessageFor(model => model.ClothFor, "", new { @class = "text-danger" })
+                *@
                 <div class="radio-buttons">
                     <label for="cloth-type">Cloth for: </label>
                     <span>Male: </span> @Html.RadioButtonFor(model => model.ClothFor, "Male")
@@ -38,6 +38,8 @@
                     <span>Almost New:</span> @Html.RadioButtonFor(model => model.Type, "Almost New")
                     <span>Used:</span> @Html.RadioButtonFor(model => model.Type, "Used")
                 </div>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "", placeholder = "Cloth Name(eg. t-shirt, pant, etc )" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 <input type="submit" value="Submit" id="submit" />
             </div>
         </div>

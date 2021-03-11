@@ -158,14 +158,23 @@
 
 .current {
     width: 40%;
-    text-align: center;
+    text-align: left;
     background-color: burlywood;
 }
 
 .recent {
     width: 60%;
-    text-align: center;
+    text-align: left;
     background-color: aqua;
+}
+
+.__current {
+    display: flex;
+    justify-content: space-between;
+}
+
+.__current .donation-info {
+    display: block;
 }
 
 

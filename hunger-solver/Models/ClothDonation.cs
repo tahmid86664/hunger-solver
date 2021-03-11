@@ -17,10 +17,14 @@ namespace hunger_solver.Models
         [Required]
         [Display(Name = "Type")]
         public string Type { get; set; }
+        [Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
 
         public string DonatorName { get; set; }
         public string DonatorEmail { get; set; }
         public string DonatorImage { get; set; }
+        public string VolunteerEmail { get; set; }
         public DateTime Date { get; set; }
         public string Place { get; set; }
         public bool IsTaken { get; set; }

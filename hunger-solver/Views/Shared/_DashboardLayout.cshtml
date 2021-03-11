@@ -40,7 +40,14 @@
             <div class="sidebar_buttons">
                 <div class="sidebar-options">
                     <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
-                    @Html.ActionLink("Dashboard Home", "Index", "Dashboard")
+                    @if (ViewBag.donator != null)
+                    {
+                        @Html.ActionLink("Dashboard Home", "Index", "Dashboard")
+                    }
+                    @if (ViewBag.volunteer != null)
+                    {
+                        @Html.ActionLink("Dashboard Home", "Index2", "Dashboard")
+                    }
                 </div>
                 <div class="sidebar-options">
                     <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
@@ -48,19 +55,19 @@
                 </div>
                 <div class="sidebar-options">
                     <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
-                    @Html.ActionLink("Donate Food", "DonateFood", "Dashboard")
+                    @Html.ActionLink("Donate Food", "DonateFoodForUser", "Dashboard")
                 </div>
                 <div class="sidebar-options">
                     <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
-                    @Html.ActionLink("Donate Cloth", "DonateCloth", "Dashboard")
+                    @Html.ActionLink("Donate Cloth", "DonateClothForUser", "Dashboard")
                 </div>
                 <div class="sidebar-options">
                     <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
-                    @Html.ActionLink("Donate Money", "DonateMoney", "Dashboard")
+                    @Html.ActionLink("Donate Money", "DonateMoneyForUser", "Dashboard")
                 </div>
                 <div class="sidebar-options">
                     <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
-                    @Html.ActionLink("Donate Blood", "DonateBlood", "Dashboard")
+                    @Html.ActionLink("Donate Blood", "DonateBloodForUser", "Dashboard")
                 </div>
             </div>
             <div class="sidebar_bottom">

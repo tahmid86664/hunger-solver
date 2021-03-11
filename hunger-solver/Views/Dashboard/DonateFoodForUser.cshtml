@@ -1,8 +1,30 @@
-﻿
+﻿@model hunger_solver.Models.FoodDonation
+
 @{
     ViewBag.Title = "DonateFoodForUser";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
-<h2>DonateFoodForUser</h2>
+<h2>Donate Food</h2>
+@using (Html.BeginForm("FoodDonation", "Donation", FormMethod.Post))
+{
+    <div class="food-donation-form-container">
+        <div class="header">
+            <h3>Please fill out this form</h3>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="sep"></div>
+        <div class="inputs">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "", placeholder = "Food Name" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
 
+            <div class="radio-buttons">
+                <label for="food-type">Food type (new or wastage): </label>
+                <span>New:</span> @Html.RadioButtonFor(model => model.Type, "New")
+                <span>Wastage:</span> @Html.RadioButtonFor(model => model.Type, "Wastage")
+            </div>
+
+            <input type="submit" value="Submit" id="submit" />
+        </div>
+    </div>
+}

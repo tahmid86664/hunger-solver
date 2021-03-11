@@ -21,6 +21,7 @@ namespace hunger_solver.Models
         public string DonatorName { get; set; }
         public string DonatorEmail { get; set; }
         public string DonatorImage { get; set; }
+        public string VolunteerEmail { get; set; }
         public DateTime Date { get; set; }
         public string Place { get; set; }
         public bool IsTaken { get; set; }
