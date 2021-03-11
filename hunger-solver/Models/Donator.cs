@@ -30,6 +30,7 @@ namespace hunger_solver.Models
         [Display(Name = "Mobile")]
         public string Mobile { get; set; }
 
+        public string UserType { get; set; }
 
         // edit in dashboard
         public string Image { get; set; }

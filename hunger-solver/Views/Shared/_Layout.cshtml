@@ -25,6 +25,7 @@
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Events", "Index", "Event")</li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Donations
@@ -37,7 +38,14 @@
                             </div>
                         </li>
                     </ul>
-                    <ul class="nav navbar-nav ml-auto">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>@Html.ActionLink("Volunteers", "Index", "Volunteer")</li>
+                            <li>@Html.ActionLink("Login as Volunteer", "Login", "Volunteer")</li>
+                        </ul>
+                    }
+                    <ul class="nav navbar-nav navbar-right">
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li>@Html.ActionLink("Signup", "Signup", "User")</li>
@@ -49,13 +57,7 @@
                         }
 
                     </ul>
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>@Html.ActionLink("Volunteer", "Index", "Volunteer")</li>
-                            <li>@Html.ActionLink("Login as Volunteer", "Login", "Volunteer")</li>
-                        </ul>
-                    }
+
                 </div>
             </div>
         </nav>
@@ -75,32 +77,27 @@
                     <h3>Site Map</h3>
                     <ul class="list-unstyled three-column">
                         <li>Home</li>
-                        <li>Services</li>
                         <li>About</li>
                         <li>Code</li>
                         <li>Design</li>
-                        <li>Host</li>
-                        <li>Contact</li>
-                        <li>Company</li>
+                        <li>Volunteers</li>
+                        <li>Events</li>
                     </ul>
                     <ul class="list-unstyled socila-list">
-                        <li><img src="http://placehold.it/48x48" alt="" /></li>
-                        <li><img src="http://placehold.it/48x48" alt="" /></li>
-                        <li><img src="http://placehold.it/48x48" alt="" /></li>
-                        <li><img src="http://placehold.it/48x48" alt="" /></li>
-                        <li><img src="http://placehold.it/48x48" alt="" /></li>
-                        <li><img src="http://placehold.it/48x48" alt="" /></li>
+                        <li><img src="http://placehold.it/48x48" alt="facebook" /></li>
+                        <li><img src="http://placehold.it/48x48" alt="instagram" /></li>
+                        <li><img src="http://placehold.it/48x48" alt="twitter" /></li>
                     </ul>
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <h3>latest Articles</h3>
+                    <h3>Latest Events</h3>
                     <div class="media">
                         <a href="#" class="pull-left">
                             <img src="http://placehold.it/64x64" alt="" class="media-object" />
                         </a>
                         <div class="media-body">
-                            <h4 class="media-heading">Programming</h4>
+                            <h4 class="media-heading">Money Donation Event at Dhaka</h4>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                         </div>
                     </div>
@@ -110,7 +107,7 @@
                             <img src="http://placehold.it/64x64" alt="" class="media-object" />
                         </a>
                         <div class="media-body">
-                            <h4 class="media-heading">Coding</h4>
+                            <h4 class="media-heading">Cloth Donation Event at Narayanganj</h4>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                         </div>
                     </div>
@@ -120,7 +117,7 @@
                             <img src="http://placehold.it/64x64" alt="" class="media-object" />
                         </a>
                         <div class="media-body">
-                            <h4 class="media-heading">Web Sesign</h4>
+                            <h4 class="media-heading">Need B+ blood at Square Hospital</h4>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                         </div>
                     </div>

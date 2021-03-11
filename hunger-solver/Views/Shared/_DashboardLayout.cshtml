@@ -31,8 +31,9 @@
                 <div class="sidebar_profile_image">
                     <img src="~/images/user_dummy.png" alt="profile image"/>
                 </div>
-                <div class="sidebar_profile_name">
+                <div class="sidebar_profile_name" style="flex-direction: column;">
                     <a href="/Dashboard">@ViewBag.user.Name</a>
+                    <div id="sidebar-designation" style="color: yellow; ">(@ViewBag.user.UserType)</div>
                 </div>
             </div>
             <div class="separator"></div>
@@ -44,6 +45,22 @@
                 <div class="sidebar-options">
                     <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
                     @Html.ActionLink("Personal Info", "PersonalInfo", "Dashboard")
+                </div>
+                <div class="sidebar-options">
+                    <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
+                    @Html.ActionLink("Donate Food", "DonateFood", "Dashboard")
+                </div>
+                <div class="sidebar-options">
+                    <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
+                    @Html.ActionLink("Donate Cloth", "DonateCloth", "Dashboard")
+                </div>
+                <div class="sidebar-options">
+                    <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
+                    @Html.ActionLink("Donate Money", "DonateMoney", "Dashboard")
+                </div>
+                <div class="sidebar-options">
+                    <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
+                    @Html.ActionLink("Donate Blood", "DonateBlood", "Dashboard")
                 </div>
             </div>
             <div class="sidebar_bottom">

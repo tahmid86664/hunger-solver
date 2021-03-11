@@ -50,6 +50,7 @@ namespace hunger_solver.Controllers
                 volunteer.Mobile = model.Mobile;
                 volunteer.NID = model.NID;
                 volunteer.Designation = "member";
+                volunteer.UserType = "volunteer";
 
                 var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
 

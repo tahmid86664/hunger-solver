@@ -34,6 +34,8 @@ namespace hunger_solver.Models
         [Display(Name = "NID")]
         public string NID { get; set; }
 
+        public string UserType { get; set; }
+
         // edit in dashboard
         public string Designation { get; set; }
         public string Image { get; set; }

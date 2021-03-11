@@ -49,6 +49,7 @@ namespace hunger_solver.Controllers
                 user.Name = model.Name;
                 user.Password = model.Password;
                 user.Mobile = model.Mobile;
+                user.UserType = "user";
 
                 var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
 

@@ -406,6 +406,10 @@
     <Content Include="Views\Donation\ClothDonation.cshtml" />
     <Content Include="Views\Donation\MoneyDonation.cshtml" />
     <Content Include="Views\Donation\BloodDonation.cshtml" />
+    <Content Include="Views\Dashboard\DonateFoodForUser.cshtml" />
+    <Content Include="Views\Dashboard\DonateClothForUser.cshtml" />
+    <Content Include="Views\Dashboard\DonateMoneyForUser.cshtml" />
+    <Content Include="Views\Dashboard\DonateBloodForUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
