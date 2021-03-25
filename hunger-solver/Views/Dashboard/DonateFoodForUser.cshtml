@@ -13,6 +13,14 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="sep"></div>
         <div class="inputs">
+            <div class="user-location-display">
+                <label for="user-latitude">Your Latitude</label>
+                @Html.EditorFor(model => model.latitude, new { htmlAttributes = new { @id = "latitude" } })
+                @Html.ValidationMessageFor(model => model.latitude, "", new { @class = "text-danger" })
+                <label for="user-latitude">Your Longitude</label>
+                @Html.EditorFor(model => model.longitude, new { htmlAttributes = new { @id = "longitude" } })
+                @Html.ValidationMessageFor(model => model.longitude, "", new { @class = "text-danger" })
+            </div>
             <label>Food Name</label>
             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "", placeholder = "Give a name describe you food to donate" } })
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -23,7 +31,35 @@
                 <span>Wastage:</span> @Html.RadioButtonFor(model => model.Type, "Wastage")
             </div>
 
-            <input type="submit" value="Submit" id="submit" class="submit-others"/>
+            <input type="submit" value="Submit" id="submit" class="submit-others" />
         </div>
     </div>
 }
+
+
+<script type="text/javascript">
+    navigator.geolocation.getCurrentPosition(showPosition);
+
+    function showPosition(position) {
+        if (position === null) {
+            console.log("denied");
+        }
+        else {
+            console.log("accepted");
+            var coord = position.coords;
+            console.log(coord.latitude);
+            console.log(coord.longitude);
+
+            document.getElementById("latitude").value = coord.latitude;
+            document.getElementById("longitude").value = coord.longitude;
+
+            /*var lat = document.getElementById("latitude");
+            lat.value = coord.latitude;
+
+            var lon = document.getElementById("longitude");
+            lon.value = coord.longitude;*/
+        }
+
+
+    }
+</script>
