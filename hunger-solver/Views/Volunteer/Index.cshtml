@@ -4,5 +4,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="container">
+    <h1>Volunteers</h1>
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        @foreach (var item in ViewBag.volunteersList)
+        {
+            <div class="col-md-4">
+                <div class="volunteer-container">
+                    <div class="volunteer-image">
+                        <img src="~/images/user_dummy.png" alt="volunteer image" />
+                    </div>
+                    <div class="volunteer-basic-info">
+                        <p>@item.Name.ToUpper()</p>
+                        <p>@item.Email</p>
+                        <p>@item.Mobile</p>
+                        <p>@item.Designation</p>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
 

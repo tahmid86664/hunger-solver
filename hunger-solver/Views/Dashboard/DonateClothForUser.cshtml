@@ -8,9 +8,9 @@
 @using (Html.BeginForm("ClothDonation", "Donation", FormMethod.Post))
 {
     <div class="cloth-donation-form-container">
-        <div class="header">
-            <h3>Please fill out this form</h3>
-        </div>
+
+        <h3>Please fill out this form</h3>
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="sep"></div>
         <div class="inputs">
@@ -29,9 +29,10 @@
                 <span>Almost New:</span> @Html.RadioButtonFor(model => model.Type, "Almost New")
                 <span>Used:</span> @Html.RadioButtonFor(model => model.Type, "Used")
             </div>
+            <label>Cloth name</label>
             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "", placeholder = "Cloth Name(eg. t-shirt, pant, etc )" } })
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            <input type="submit" value="Submit" id="submit" />
+            <input type="submit" value="Submit" id="submit" class="submit-others"/>
         </div>
     </div>
 }

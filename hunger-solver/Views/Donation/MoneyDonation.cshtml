@@ -5,6 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
+
+
 <div class="container">
     <h2>Money Donation</h2>
     <div class="money-donation-description">
@@ -23,16 +27,54 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="sep"></div>
             <div class="inputs">
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "", placeholder = "Amount" } })
+                <div class="user-location-display">
+                    <label for="user-latitude">Your Latitude</label>
+                    @Html.EditorFor(model => model.latitude, new { htmlAttributes = new { @id = "latitude" } })
+                    @Html.ValidationMessageFor(model => model.latitude, "", new { @class = "text-danger" })
+                    <label for="user-latitude">Your Longitude</label>
+                    @Html.EditorFor(model => model.longitude, new { htmlAttributes = new { @id = "longitude" } })
+                    @Html.ValidationMessageFor(model => model.longitude, "", new { @class = "text-danger" })
+                </div>
+                <label>Amount</label>
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "", placeholder = "Amount in taka" } })
                 @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
                 <div class="radio-buttons">
                     <label for="payment-type">Payment type: </label>
                     <span>Online:</span> @Html.RadioButtonFor(model => model.PaymentType, "Online")
                     <span>Offline:</span> @Html.RadioButtonFor(model => model.PaymentType, "Offline")
                 </div>
-                <input type="submit" value="Submit" id="submit" />
+                <input type="submit" value="Submit" id="submit" class="submit-others" />
             </div>
         </div>
     }
 </div>
+
+<script type="text/javascript">
+    navigator.geolocation.getCurrentPosition(showPosition);
+
+    function showPosition(position) {
+        if (position === null) {
+            console.log("denied");
+        }
+        else {
+            console.log("accepted");
+            var coord = position.coords;
+            console.log(coord.latitude);
+            console.log(coord.longitude);
+
+            document.getElementById("latitude").value = coord.latitude;
+            document.getElementById("longitude").value = coord.longitude;
+
+            /*var lat = document.getElementById("latitude");
+            lat.value = coord.latitude;
+
+            var lon = document.getElementById("longitude");
+            lon.value = coord.longitude;*/
+        }
+
+
+    }
+
+</script>
+
 

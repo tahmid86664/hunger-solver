@@ -1,4 +1,4 @@
-﻿
+﻿@model hunger_solver.Models.ChangePersonalInfo
 @{
     ViewBag.Title = "PersonalInfo";
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
@@ -17,10 +17,54 @@
     }
 }
 
-<h2>PersonalInfo</h2>
+<h2>Personal Info</h2>
 <div class="personal-info">
-    <div><span>Name: </span>@ViewBag.user.Name</div>
-    <div><span>Email: </span>@ViewBag.user.Email</div>
-    <div><span>Mobile: </span>@ViewBag.user.Mobile</div>
+    <div class="personal-info-others-container">
+        <div><span>Name: </span>@ViewBag.user.Name</div>
+        <div><span>Email: </span>@ViewBag.user.Email</div>
+        <div><span>Mobile: </span>@ViewBag.user.Mobile</div>
+
+        <div class="pass-change-container">
+            <h3>Change Password</h3>
+            @using (Html.BeginForm("ChangePassword", "Dashboard", FormMethod.Post)){
+                @Html.TextBoxFor(model => model.UserType, new { @Value = ViewBag.user.UserType, @readonly = "readonly", @class = "donation-item-id-field" })
+                @Html.TextBoxFor(model => model.UserID, new { @Value = ViewBag.user._id, @readonly = "readonly", @class = "donation-item-id-field" })
+
+                <label>Password</label>
+                @Html.TextBoxFor(model => model.Password, new { @Type = "password", @class = "password-change" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                <br/>
+                <label>Confirm Password</label>
+                @Html.TextBoxFor(model => model.ConfirmPassword, new { @Type = "password", @class = "password-change" })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+
+                <button type="submit" class="submit-others submit-others-vol-confirm">Change Password</button>
+            }
+        </div>
+        <br />
+        <div class="mobile-change-container">
+            <h3>Chnage Mobile Number</h3>
+            @using (Html.BeginForm("ChangeMobile", "Dashboard", FormMethod.Post))
+            {
+                @Html.TextBoxFor(model => model.UserType, new { @Value = ViewBag.user.UserType, @readonly = "readonly", @class = "donation-item-id-field" })
+                @Html.TextBoxFor(model => model.UserID, new { @Value = ViewBag.user._id, @readonly = "readonly", @class = "donation-item-id-field" })
+
+                <label>New Mobile Number</label>
+                @Html.TextBoxFor(model => model.Mobile, new { @class = "mobile-change" })
+
+                <button type="submit" class="submit-others submit-others-vol-confirm">Change Mobile Number</button>
+            }
+        </div>
+    </div>
+    <div class="personal-info-separator"></div>
+    <div class="personal-info-image-container">
+        <div class="profile-image-container">
+            <img src="~/images/user_dummy.png" alt="profile-picture" />
+        </div>
+        @using (Html.BeginForm("UploadImage", "File", FormMethod.Post, new { enctype = "multipart/form-data" })){ 
+            <input type="file" name="file" accept="image/*" required/>
+            <button class="submit-others">Upload</button>
+        }
+    </div>
 </div>
 

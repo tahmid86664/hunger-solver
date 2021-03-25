@@ -9,12 +9,11 @@
 @using (Html.BeginForm("MoneyDonation", "Donation", FormMethod.Post))
 {
     <div class="money-donation-form-container">
-        <div class="header">
-            <h3>Please fill out this form</h3>
-        </div>
+        <h3>Please fill out this form</h3>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="sep"></div>
         <div class="inputs">
+            <label>Amount (Taka)</label>
             @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "", placeholder = "Amount" } })
             @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
             <div class="radio-buttons">
@@ -22,7 +21,7 @@
                 <span>Online:</span> @Html.RadioButtonFor(model => model.PaymentType, "Online")
                 <span>Offline:</span> @Html.RadioButtonFor(model => model.PaymentType, "Offline")
             </div>
-            <input type="submit" value="Submit" id="submit" />
+            <input type="submit" value="Submit" id="submit" class="submit-others" />
         </div>
     </div>
 }

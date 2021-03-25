@@ -31,6 +31,16 @@ namespace hunger_solver.Controllers
         };
         IFirebaseClient firebaseClient;
 
+        public ActionResult Index()
+        {
+            // get all volunteers
+            var volunteersList = ReadVolunteerFromFirebase();
+            ViewBag.volunteersList = volunteersList;
+
+            return View();
+        }
+
+
         // signup
         [HttpGet]
         public ActionResult Signup()
@@ -271,5 +281,10 @@ namespace hunger_solver.Controllers
 
             return list;
         }
+
+
+        
+        
+
     }
 }

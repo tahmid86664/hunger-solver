@@ -6,9 +6,11 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -68,14 +70,27 @@ namespace hunger_solver.Controllers
         public async Task<ActionResult> FoodDonation(FoodDonation model)
         {
             try
-            {                
+            {
+                RootObject userLoc = getAddress(model.latitude, model.longitude);
+
+                /* Debug.WriteLine(userLoc.address.road);
+                Debug.WriteLine(userLoc.address.suburb);
+                Debug.WriteLine(userLoc.address.city);
+                Debug.WriteLine(userLoc.address.state_district);
+                Debug.WriteLine(userLoc.address.state);
+                Debug.WriteLine(userLoc.address.postcode);
+                Debug.WriteLine(userLoc.address.country);
+                Debug.WriteLine(userLoc.address.country_code); */
+
                 Donator donator = (Donator)Session["donator"];
                 model.DonatorName = donator.Name;
                 model.DonatorEmail = donator.Email;
+                model.DonatorPhone = donator.Mobile;
                 model.Date = DateTime.Now;
-                model.Place = "Motijheel";
+                model.Place = userLoc.display_name;
                 model.IsTaken = false;
                 model.IsDelivered = false;
+                model.IsConfirmed = false;
                 
 
                 /* ================== send e-mail to volunteer ================ */
@@ -150,15 +165,18 @@ namespace hunger_solver.Controllers
         public async Task<ActionResult> ClothDonation(ClothDonation model)
         {
             try
-            {                
+            {
+                RootObject userLoc = getAddress(model.latitude, model.longitude);
+
                 Donator donator = (Donator)Session["donator"];
                 model.DonatorName = donator.Name;
                 model.DonatorEmail = donator.Email;
                 model.Date = DateTime.Now;
-                model.Place = "Motijheel";
+                model.Place = userLoc.display_name;
                 model.IsTaken = false;
                 model.IsDelivered = false;
-                
+                model.IsConfirmed = false;
+
 
                 /* ================== send e-mail to volunteer ================ */
                 var bodyMessage = "You have a notification for cloth donation";
@@ -232,15 +250,18 @@ namespace hunger_solver.Controllers
         public async Task<ActionResult> MoneyDonation(MoneyDonation model)
         {
             try
-            {                
+            {
+                RootObject userLoc = getAddress(model.latitude, model.longitude);
+
                 Donator donator = (Donator)Session["donator"];
                 model.DonatorName = donator.Name;
                 model.DonatorEmail = donator.Email;
                 model.Date = DateTime.Now;
-                model.Place = "Motijheel";
+                model.Place = userLoc.display_name;
                 model.IsTaken = false;
                 model.IsDelivered = false;
-                
+                model.IsConfirmed = false;
+
 
                 /* ================== send e-mail to volunteer ================ */
                 var bodyMessage = "You have a notification for money donation";
@@ -326,5 +347,32 @@ namespace hunger_solver.Controllers
 
             return list;
         }
+
+
+
+
+
+
+
+
+
+        // tracking the location
+        public RootObject getAddress(double lat, double lon)
+        {
+            WebClient webClient = new WebClient();
+
+            webClient.Headers.Add("user-agent", "Mozilla/4.0(compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+
+            webClient.Headers.Add("Referer", "http://www.microsoft.com");
+
+            var jsonData = webClient.DownloadData("http://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lon);
+
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(RootObject));
+
+            RootObject rootObject = (RootObject)ser.ReadObject(new MemoryStream(jsonData));
+
+            return rootObject;
+        }
+
     }
 }

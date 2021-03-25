@@ -26,6 +26,14 @@
                 @*   @Html.EditorFor(model => model.ClothFor, new { htmlAttributes = new { @class = "", placeholder = "Female or Male?" } })
         @Html.ValidationMessageFor(model => model.ClothFor, "", new { @class = "text-danger" })
                 *@
+                <div class="user-location-display">
+                    <label for="user-latitude">Your Latitude</label>
+                    @Html.EditorFor(model => model.latitude, new { htmlAttributes = new { @id = "latitude" } })
+                    @Html.ValidationMessageFor(model => model.latitude, "", new { @class = "text-danger" })
+                    <label for="user-latitude">Your Longitude</label>
+                    @Html.EditorFor(model => model.longitude, new { htmlAttributes = new { @id = "longitude" } })
+                    @Html.ValidationMessageFor(model => model.longitude, "", new { @class = "text-danger" })
+                </div>
                 <div class="radio-buttons">
                     <label for="cloth-type">Cloth for: </label>
                     <span>Male: </span> @Html.RadioButtonFor(model => model.ClothFor, "Male")
@@ -38,10 +46,39 @@
                     <span>Almost New:</span> @Html.RadioButtonFor(model => model.Type, "Almost New")
                     <span>Used:</span> @Html.RadioButtonFor(model => model.Type, "Used")
                 </div>
+                <label>Cloth Name</label>
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "", placeholder = "Cloth Name(eg. t-shirt, pant, etc )" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                <input type="submit" value="Submit" id="submit" />
+                <input type="submit" value="Submit" id="submit" class="submit-others" />
             </div>
         </div>
     }
 </div>
+
+
+<script type="text/javascript">
+    navigator.geolocation.getCurrentPosition(showPosition);
+
+    function showPosition(position) {
+        if (position === null) {
+            console.log("denied");
+        }
+        else {
+            console.log("accepted");
+            var coord = position.coords;
+            console.log(coord.latitude);
+            console.log(coord.longitude);
+
+            document.getElementById("latitude").value = coord.latitude;
+            document.getElementById("longitude").value = coord.longitude;
+
+            /*var lat = document.getElementById("latitude");
+            lat.value = coord.latitude;
+
+            var lon = document.getElementById("longitude");
+            lon.value = coord.longitude;*/
+        }
+
+
+    }
+</script>

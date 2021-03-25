@@ -76,20 +76,23 @@
         </div>
         <div class="dashboard_body">
             <div class="header">
-                <ul class="dashboard-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        if (ViewBag.donator != null)
+                <span class="dashboard-welcome-text">Welcome, @ViewBag.user.Name</span>
+                <div class="header-nav">
+                    <ul class="dashboard-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <li>@Html.ActionLink("Logout", "Logoff", "User")</li>
+                            if (ViewBag.donator != null)
+                            {
+                                <li>@Html.ActionLink("Logout", "Logoff", "User")</li>
+                            }
+                            if (ViewBag.volunteer != null)
+                            {
+                                <li>@Html.ActionLink("Logout", "Logoff", "Volunteer")</li>
+                            }
                         }
-                        if (ViewBag.volunteer != null)
-                        {
-                            <li>@Html.ActionLink("Logout", "Logoff", "Volunteer")</li>
-                        }
-                    }
-                </ul>
+                    </ul>
+                </div>
             </div>
             <main class="dashboard_main">
                 <div>

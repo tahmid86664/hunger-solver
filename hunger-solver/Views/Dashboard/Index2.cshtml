@@ -1,4 +1,4 @@
-﻿
+﻿@model hunger_solver.Models.ConfirmDonation
 
 @{
     ViewBag.Title = "Dashboard";
@@ -14,66 +14,264 @@
 
 <div class="index-dashboard">
     <div class="top-section">
-        <div class="current">
+        <div class="current-container">
             <h3>current</h3>
-            <div class="__current">
+            <div class="current">
                 <div class="food-donation-dashboard-index">
-                    Current Food Donations:
-                    @ViewBag.currentFoodList.Count
+                    <span class="current-title">
+                        Current Food Donations:
+                        @ViewBag.currentFoodList.Count
+                    </span>
                     @foreach (var item in ViewBag.currentFoodList)
                     {
                         <div class="current-food">
-                            <span class="donation-info">Name: @item.Name</span>
-                            <span class="donation-info">Place: @item.Place</span>
-                            <input type="submit" value="Confirm" id="submit" />
+                            &diams;<span class="donation-info">Name: @item.Name</span> <br />
+                            <span class="donation-info">Place: @item.Place</span> <br />
+                            @if (item.IsConfirmed)
+                            {
+                                <span class="confiem-text" style="font-weight: bold;">Confirmed</span>
+                            }
+                            else
+                            {
+
+                                using (Html.BeginForm("ConfirmDonationByVolunteer", "Dashboard", FormMethod.Post))
+                                {
+                                    @Html.TextBoxFor(model => model.item_id, new { @Value = item._id, @readonly = "readonly", @class = "donation-item-id-field" })
+                                    @Html.TextBoxFor(model => model.item_type, new { @Value = "food", @readonly = "readonly", @class = "donation-item-id-field" })
+
+                                    @*<input class="donation-item-id-field" name="food_item_id" type="text" value=@item._id disabled />
+                                        <input class="donation-item-id-field" name="item_type" type="text" value="food" disabled /> *@
+                                    <button type="submit" class="submit-others submit-others-vol-confirm">Confirm</button>
+                                }
+                            }
+                            <div class="donation-separator"></div>
                         </div>
                     }
                 </div>
+                <br />
                 <div class="food-donation-dashboard-index">
-                    Current Cloth Donations:
-                    @ViewBag.currentClothList.Count
+                    <span class="current-title">
+                        Current Cloth Donations:
+                        @ViewBag.currentClothList.Count
+                    </span>
                     @foreach (var item in ViewBag.currentClothList)
                     {
                         <div class="current-cloth">
-                            <span class="donation-info">Name: @item.Name</span>
-                            <span class="donation-info">Place: @item.Place</span>
-                            <input type="submit" value="Confirm" id="submit" />
+                            &diams;<span class="donation-info">Name: @item.Name</span> <br />
+                            <span class="donation-info">Place: @item.Place</span> <br />
+                            @if (item.IsConfirmed)
+                            {
+                                <span class="confiem-text" style="font-weight: bold;">Confirmed</span>
+                            }
+                            else
+                            {
+
+                                using (Html.BeginForm("ConfirmDonationByVolunteer", "Dashboard", FormMethod.Post))
+                                {
+                                    @Html.TextBoxFor(model => model.item_id, new { @Value = item._id, @readonly = "readonly", @class = "donation-item-id-field" })
+                                    @Html.TextBoxFor(model => model.item_type, new { @Value = "cloth", @readonly = "readonly", @class = "donation-item-id-field" })
+
+                                    @*<input class="donation-item-id-field" name="food_item_id" type="text" value=@item._id disabled />
+                                        <input class="donation-item-id-field" name="item_type" type="text" value="food" disabled /> *@
+                                    <button type="submit" class="submit-others submit-others-vol-confirm">Confirm</button>
+                                }
+                            }
+                            <div class="donation-separator"></div>
                         </div>
                     }
                 </div>
+                <br />
                 <div class="food-donation-dashboard-index">
-                    Current Money Donations:
-                    @ViewBag.currentMoneyList.Count
+                    <span class="current-title">
+                        Current Money Donations:
+                        @ViewBag.currentMoneyList.Count
+                    </span>
                     @foreach (var item in ViewBag.currentMoneyList)
                     {
                         if (item.PaymentType == "Offline")
                         {
                             <div class="current-money">
-                                <span class="donation-info">Amount: @item.Amount</span>
-                                <span class="donation-info">Place: @item.Place</span>
-                                <input type="submit" value="Confirm" id="submit" />
+                                &diams;<span class="donation-info">Amount: @item.Amount</span> <br />
+                                <span class="donation-info">Place: @item.Place</span> <br />
+                                @if (item.IsConfirmed)
+                                {
+                                    <span class="confiem-text" style="font-weight: bold;">Confirmed</span>
+                                }
+                                else
+                                {
+
+                                    using (Html.BeginForm("ConfirmDonationByVolunteer", "Dashboard", FormMethod.Post))
+                                    {
+                                        @Html.TextBoxFor(model => model.item_id, new { @Value = item._id, @readonly = "readonly", @class = "donation-item-id-field" })
+                                        @Html.TextBoxFor(model => model.item_type, new { @Value = "money", @readonly = "readonly", @class = "donation-item-id-field" })
+
+                                        @*<input class="donation-item-id-field" name="food_item_id" type="text" value=@item._id disabled />
+                                            <input class="donation-item-id-field" name="item_type" type="text" value="food" disabled /> *@
+                                        <button type="submit" class="submit-others submit-others-vol-confirm">Confirm</button>
+                                    }
+                                }
+                                <div class="donation-separator"></div>
+                            </div>
+                        }
+                    }
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="recent-container">
+            <h3>Confirmed Requests</h3>
+            <div class="recent">
+                <div class="food-request">
+                    <span class="current-title">Food Donations:</span>
+                    @foreach (var item in ViewBag.currentFoodList)
+                    {
+                        if (item.IsConfirmed && ViewBag.volunteer.Email == item.VolunteerEmail)
+                        {
+                            <div>
+                                &diams;<span class="donation-info">Name: @item.Name</span> <br />
+                                <span class="donation-info">Donor Name: @item.DonatorName</span> <br />
+                                <span class="donation-info">Donor Mobile: @item.DonatorPhone</span> <br />
+                                <span class="donation-info">Place: @item.Place</span> <br />
+
+                                @if (item.IsTaken && ViewBag.volunteer.Email == item.VolunteerEmail)
+                                {
+                                    <span class="confiem-text" style="font-weight: bold;">Taken</span>
+                                }
+                                else
+                                {
+
+                                    using (Html.BeginForm("TakenDonationByVolunteer", "Dashboard", FormMethod.Post))
+                                    {
+                                        @Html.TextBoxFor(model => model.item_id, new { @Value = item._id, @readonly = "readonly", @class = "donation-item-id-field" })
+                                        @Html.TextBoxFor(model => model.item_type, new { @Value = "food", @readonly = "readonly", @class = "donation-item-id-field" })
+
+
+                                        <button type="submit" class="submit-others submit-others-vol-confirm">Confirm</button>
+                                    }
+                                }
+                                <div class="donation-separator"></div>
+                            </div>
+                        }
+                    }
+                </div>
+                <br />
+                <div class="cloth-request">
+                    <span class="current-title">Cloth Donations:</span>
+                    @foreach (var item in ViewBag.currentClothList)
+                    {
+                        if (item.IsConfirmed && ViewBag.volunteer.Email == item.VolunteerEmail)
+                        {
+                            <div>
+                                &diams;<span class="donation-info">Name: @item.Name</span> <br />
+                                <span class="donation-info">Donor Name: @item.DonatorName</span> <br />
+                                <span class="donation-info">Donor Mobile: @item.DonatorPhone</span> <br />
+                                <span class="donation-info">Place: @item.Place</span> <br />
+
+                                @if (item.IsTaken && ViewBag.volunteer.Email == item.VolunteerEmail)
+                                {
+                                    <span class="confiem-text" style="font-weight: bold;">Taken</span>
+                                }
+                                else
+                                {
+
+                                    using (Html.BeginForm("TakenDonationByVolunteer", "Dashboard", FormMethod.Post))
+                                    {
+                                        @Html.TextBoxFor(model => model.item_id, new { @Value = item._id, @readonly = "readonly", @class = "donation-item-id-field" })
+                                        @Html.TextBoxFor(model => model.item_type, new { @Value = "cloth", @readonly = "readonly", @class = "donation-item-id-field" })
+
+
+                                        <button type="submit" class="submit-others submit-others-vol-confirm">Confirm</button>
+                                    }
+                                }
+                                <div class="donation-separator"></div>
+                            </div>
+                        }
+                    }
+                </div>
+                <br />
+                <div class="money-request">
+                    <span class="current-title">Money Donations:</span>
+                    @foreach (var item in ViewBag.currentMoneyList)
+                    {
+                        if (item.IsConfirmed && ViewBag.volunteer.Email == item.VolunteerEmail)
+                        {
+                            <div>
+                                &diams;<span class="donation-info">Name: @item.Amount</span> <br />
+                                <span class="donation-info">Donor Name: @item.DonatorName</span> <br />
+                                <span class="donation-info">Donor Mobile: @item.DonatorPhone</span> <br />
+                                <span class="donation-info">Place: @item.Place</span> <br />
+
+                                @if (item.IsTaken && ViewBag.volunteer.Email == item.VolunteerEmail)
+                                {
+                                    <span class="confiem-text" style="font-weight: bold;">Taken</span>
+                                }
+                                else
+                                {
+
+                                    using (Html.BeginForm("TakenDonationByVolunteer", "Dashboard", FormMethod.Post))
+                                    {
+                                        @Html.TextBoxFor(model => model.item_id, new { @Value = item._id, @readonly = "readonly", @class = "donation-item-id-field" })
+                                        @Html.TextBoxFor(model => model.item_type, new { @Value = "money", @readonly = "readonly", @class = "donation-item-id-field" })
+
+
+                                        <button type="submit" class="submit-others submit-others-vol-confirm">Confirm</button>
+                                    }
+                                }
+                                <div class="donation-separator"></div>
                             </div>
                         }
                     }
                 </div>
             </div>
         </div>
-        <div class="recent">
-            <h3>recent</h3>
-        </div>
     </div>
     <div class="bottom-section">
-        <div class="total_food_donation">
+        <div class="total_food_donation_container">
             <h3>Food</h3>
+            <div class="total_food_donation">
+                @foreach (var item in ViewBag.foodDonationList)
+                {
+                    if (item.IsTaken && ViewBag.volunteer.Email == item.VolunteerEmail)
+                    {
+                        <div>
+                            &diams;<span class="donation-info">Name: @item.Name</span> <br />
+                            <span class="donation-info">Donor Name: @item.DonatorName</span> <br />
+                            <span class="donation-info">Donor Mobile: @item.DonatorPhone</span> <br />
+                            <span class="donation-info">Place: @item.Place</span> <br />
+
+                            @if (item.IsDelivered && ViewBag.volunteer.Email == item.VolunteerEmail)
+                            {
+                                <span class="confiem-text" style="font-weight: bold;">Delivered</span>
+                            }
+                            else
+                            {
+
+                                using (Html.BeginForm("DeliveredDonationByVolunteer", "Dashboard", FormMethod.Post))
+                                {
+                                    @Html.TextBoxFor(model => model.item_id, new { @Value = item._id, @readonly = "readonly", @class = "donation-item-id-field" })
+                                    @Html.TextBoxFor(model => model.item_type, new { @Value = "food", @readonly = "readonly", @class = "donation-item-id-field" })
+
+
+                                    <button type="submit" class="submit-others submit-others-vol-confirm">Is Delivered?</button>
+                                }
+                            }
+                            <div class="donation-separator"></div>
+                        </div>
+                     }
+                 }
+            </div>
         </div>
-        <div class="total_money_donation">
+        <div class="total_money_donation_container">
             <h3>Money</h3>
+            <div class="total_money_donation"></div>
         </div>
-        <div class="total_cloth_donation">
+        <div class="total_cloth_donation_container">
             <h3>Cloths</h3>
+            <div class="total_cloth_donation"></div>
         </div>
-        <div class="total_blood_donation">
+        <div class="total_blood_donation_container">
             <h3>Blood</h3>
+            <div class="total_blood_donation"></div>
         </div>
     </div>
 </div>
