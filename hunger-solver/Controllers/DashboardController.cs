@@ -529,5 +529,105 @@ namespace hunger_solver.Controllers
 
             return RedirectToAction("/PersonalInfo");
         }
+
+
+
+        /* ========================event ========================*/
+        public ActionResult Event()
+        {
+            var eventList = ReadEventsFromFirebase();
+            ViewBag.events = eventList;
+
+            return View();
+        }
+
+        public ActionResult EventUser()
+        {
+            var eventList = ReadEventsFromFirebase();
+            ViewBag.events = eventList;
+
+            return View();
+        }
+
+        // get
+        [HttpPost]
+        public ActionResult CreateEvent(Event model)
+        {
+            Volunteer volunteer = (Volunteer)Session["volunteer"];
+            model.Date = DateTime.Now;
+            model.IsCompleted = false;
+            model.VolunteerName = volunteer.Name;
+            model.VolunteerEmail = volunteer.Email;
+            model.VolunteerPhone = volunteer.Mobile;
+
+            /*if(model.BloodGroup != "" || model.BloodGroup != null)
+            {
+                CreateBloodDonationEventFirebase()
+            }*/
+            CreateEventFirebase(model);
+
+            return RedirectToAction("/Event");
+        }
+
+        public void CreateEventFirebase(Event data)
+        {
+            try
+            {
+                AddEventToFirebase(data);
+                ModelState.AddModelError(string.Empty, "Submitted Successfully");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                Debug.WriteLine("exception from Create food donation: " + ex.Message);
+            }
+        }
+
+        public void AddEventToFirebase(Event e)
+        {
+            firebaseClient = new FireSharp.FirebaseClient(firebaseConfig);
+            var data = e;
+            PushResponse response = firebaseClient.Push("Events/", data);
+            data._id = response.Result.name;
+            SetResponse setResponse = firebaseClient.Set("Events/" + data._id, data);
+        }
+
+
+        public void CreateBloodDonationEventFirebase(Event data)
+        {
+            try
+            {
+                AddBloodDonationEventToFirebase(data);
+                ModelState.AddModelError(string.Empty, "Submitted Successfully");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                Debug.WriteLine("exception from Create food donation: " + ex.Message);
+            }
+        }
+
+        public void AddBloodDonationEventToFirebase(Event e)
+        {
+            firebaseClient = new FireSharp.FirebaseClient(firebaseConfig);
+            var data = e;
+            PushResponse response = firebaseClient.Push("BloodDonation/", data);
+            data._id = response.Result.name;
+            SetResponse setResponse = firebaseClient.Set("BloodDonation/" + data._id, data);
+        }
+
+        private List<Event> ReadEventsFromFirebase()
+        {
+            firebaseClient = new FireSharp.FirebaseClient(firebaseConfig);
+            FirebaseResponse response = firebaseClient.Get("Events");
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
+            var list = new List<Event>();
+            foreach (var item in data)
+            {
+                list.Add(JsonConvert.DeserializeObject<Event>(((JProperty)item).Value.ToString()));
+            }
+
+            return list;
+        }
     }
 }

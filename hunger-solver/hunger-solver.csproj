@@ -378,6 +378,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -390,6 +391,7 @@
     <Compile Include="Models\ChangePersonalInfo.cs" />
     <Compile Include="Models\ClothDonation.cs" />
     <Compile Include="Models\ConfirmDonation.cs" />
+    <Compile Include="Models\Event.cs" />
     <Compile Include="Models\FoodDonation.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -470,6 +472,9 @@
     <Content Include="Views\Dashboard\DonateClothForUser.cshtml" />
     <Content Include="Views\Dashboard\DonateMoneyForUser.cshtml" />
     <Content Include="Views\Dashboard\DonateBloodForUser.cshtml" />
+    <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Dashboard\Event.cshtml" />
+    <Content Include="Views\Dashboard\EventUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

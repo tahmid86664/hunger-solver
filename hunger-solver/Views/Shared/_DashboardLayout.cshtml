@@ -69,6 +69,20 @@
                     <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
                     @Html.ActionLink("Donate Blood", "DonateBloodForUser", "Dashboard")
                 </div>
+                @if (ViewBag.volunteer != null)
+                {
+                    <div class="sidebar-options">
+                        <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
+                        @Html.ActionLink("Event Management", "Event", "Dashboard")
+                    </div>
+                }
+                @if (ViewBag.donator != null)
+                {
+                    <div class="sidebar-options">
+                        <img src="~/images/user_dummy.png" alt="icon" class="sidebar-options-icon" />
+                        @Html.ActionLink("Events", "EventUser", "Dashboard")
+                    </div>
+                }
             </div>
             <div class="sidebar_bottom">
 
